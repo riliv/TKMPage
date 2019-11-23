@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.14480ef7b6b9f1ca0e5956ceca379f7b.js"
+  "/TKMPage/precache-manifest.48fec2af288985f2f8c3ab268a83d7d9.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "tkm2"});
