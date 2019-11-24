@@ -5,7 +5,7 @@
             <img class="h-10 mt-4 object-contain" src="../assets/logo.png" alt="">
         </div>
         <div class="hidden lg:block w-1/5 ml-auto pt-4 content-center">
-            <router-link to="/test">
+            <router-link to="/intro">
                 <v-button class="py-2" msg="Mulai Assessment Sekarang"></v-button>
             </router-link>
         </div>

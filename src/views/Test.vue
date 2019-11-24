@@ -1,106 +1,135 @@
 <template>
   <div class="font-sans">
     <div class="flex flex-row justify-center mb-16">
-      <img class="h-8 mt-6 object-contain" src="../assets/logo.png" alt="">
+      <img ref="img" class="h-8 mt-6 object-contain" src="../assets/logo.png" alt="" />
     </div>
-    <div class="flex flex-row w-full">
-      <div class="flex flex-col w-6/12 pl-40">
-        <img class="object-contain w-5/12 mr-auto mb-4" src="../assets/section-1.png" alt="">
-        <h1 class="text-4xl text-gray-800 text-left font-sans font-semibold">
-            Selamat datang di halaman Tes Kesehatan Mental
-        </h1>
-        <p class="w-full md:w-10/12 lg:w-full mx-auto pt-3 text-gray-700 text-base text-lg mb-8 text-center lg:text-left slide-in-bottom-subtitle leading-relaxed">
-            Dalam tes ini anda nanti akan dituntun untuk menjawab pertanyaan-pertanyaan pilihan ganda dengan sebuah skala 1-4, adapun aturan dalam pilihan ganda adalah sebagai berikut
-        </p>
-        <div class="flex flex-row w-6/12">
-          <v-button class="mx-auto py-4" msg="MULAI TES"></v-button>
-          <router-link to="/" class="my-auto pl-5 text-gray-700 text-sm" style="text-decoration:underline!important;">Kembali</router-link>
-        </div>
-      </div>
-      <div class="ml-40 w-6/12 rounded-l-lg" style="background: #10CBE1;">
-        <div class="absolute w-1/5 -ml-20 rounded-lg bg-white shadow-xl border-2 border-gray-100" style="top:65%">
-          <p class="absolute border w-10/12 border-gray-200" style="top:50%"></p>
-          <div class="flex py-2 flex-col w-full">
-            <table class="table-auto mx-auto">
+    <div class="flex flex-col w-10/12 lg:w-8/12 mx-auto">
+      <div class="rounded-lg overflow-hidden">
+        <form-wizard shape="tab" class="w-full -mt-16" @on-complete="onComplete" ref="wizard" title="" subtitle="" transition="fade-in">
+          <p class="text-center text-3xl font-semibold">Tes Bagian 1/3</p>
+          <!-- First Tab -->
+          <tab-content>
+            <div class="mt-10 mx-5 w-full bg-gray-200 rounded-l-full rounded-r-full">
+              <div class="rounded-l-full rounded-r-full text-xs leading-none py-1 text-center text-white" style="width: 30%; background: #10CBE1"></div>
+            </div>
+            <table class="table-auto my-8 mx-auto text-lg text-gray-800">
               <thead>
-                <tr>
+                <tr class="border-b">
+                  <th class="text-left px-5">Pernyataan</th>
                   <th class="px-5 py-3">0</th>
                   <th class="px-5 py-3">1</th>
                   <th class="px-5 py-3">2</th>
                   <th class="px-5 py-3">3</th>
                 </tr>
               </thead>
+                <t-content name="radio-1" text="Saya merasa sulit untuk beristirahat"></t-content>
+                <t-content name="radio-2" text="Saya menyadari mulut saya kering"></t-content>
+                <t-content name="radio-3" text="Sepertinya saya tidak bisa merasakan perasaan positif sama sekali"></t-content>
+                <t-content name="radio-4" text="Saya mengalami kondisi sulit bernafas (mis. Bernafas sangat cepat, sesak nafas tanpa adanya aktivitas fisik)"></t-content>
+                <t-content name="radio-5" text="Saya merasa sulit untuk membangun keinginan melakukan sesuatu"></t-content>
+                <t-content name="radio-6" text="Saya cenderung bereaksi berlebihan terhadap situasi"></t-content>
+                <t-content name="radio-7" text="Saya mengalami tubuh saya gemetar (misal di tangan)"></t-content>
               <tbody>
-                <tr>
-                  <td class="px-5 py-3">
-                    <label class="inline-flex items-center">
-                      <input type="radio" class="form-radio" name="radio" value="0" checked>
-                    </label>
-                  </td>
-                  <td class="px-5 py-3">
-                    <label class="inline-flex items-center">
-                      <input type="radio" class="form-radio" name="radio" value="1">
-                    </label>
-                  </td>
-                  <td class="px-5 py-3">
-                    <label class="inline-flex items-center">
-                      <input type="radio" class="form-radio" name="radio" value="2">
-                    </label>
-                  </td>
-                  <td class="px-5 py-3">
-                    <label class="inline-flex items-center">
-                      <input type="radio" class="form-radio" name="radio" value="3">
-                    </label>
-                  </td>
-                </tr>
               </tbody>
             </table>
-          </div>
-        </div>
-        <div class="pl-16 pt-16 text-white font-semibold">
-          <p class="text-2xl pb-4">Skala Jawaban</p>
-          <table class="table-auto">
+          </tab-content>
+          <!-- Second Tab -->
+          <tab-content>
+            <div class="mt-10 mx-5 w-full bg-gray-200 rounded-l-full rounded-r-full">
+              <div class="rounded-l-full rounded-r-full text-xs leading-none py-1 text-center text-white" style="width: 66%; background: #10CBE1"></div>
+            </div>
+            <table class="table-auto my-8 mx-auto text-lg text-gray-800">
               <thead>
                 <tr class="border-b">
-                  <th class="px-4 py-2 text-center">Nilai</th>
-                  <th class="px-4 py-2 text-left">Keterangan</th>
+                  <th class="text-left px-5">Pernyataan</th>
+                  <th class="px-5 py-3">0</th>
+                  <th class="px-5 py-3">1</th>
+                  <th class="px-5 py-3">2</th>
+                  <th class="px-5 py-3">3</th>
                 </tr>
               </thead>
+                <t-content name="radio-8" text="Saya merasa terlalu sering melakukan aktivitas otomatis untuk merespon cemas (Misal: Menggigit kuku, menarik nafas panjang berulang, bicara banyak saat cemas, memotong pembicaraan yang membuat cemas, dsb.)"></t-content>
+                <t-content name="radio-9" text="Saya khawatir tentang situasi di mana saya mungkin panik dan mempermalukan diri sendiri"></t-content>
+                <t-content name="radio-10" text="Saya merasa tidak ada yang bisa saya harapkan"></t-content>
+                <t-content name="radio-11" text="Saya merasa gelisah"></t-content>
+                <t-content name="radio-12" text="Saya merasa sulit untuk tenang"></t-content>
+                <t-content name="radio-13" text="Saya merasa sedih dan galau"></t-content>
+                <t-content name="radio-14" text="Saya tidak bisa menerima terhadap apa pun yang membuat saya tidak bisa melanjutkan apa yang saya lakukan"></t-content>
               <tbody>
-                <tr class="border-b">
-                  <td class="px-4 py-2 text-center">0</td>
-                  <td class="px-4 py-2 text-left">Tidak terjadi pada saya sama sekali</td>
-                </tr>
-                <tr class="border-b">
-                  <td class="px-4 py-2 text-center">2</td>
-                  <td class="px-4 py-2 text-left">Jarang terjadi pada saya</td>
-                </tr>
-                <tr class="border-b">
-                  <td class="px-4 py-2 text-center">3</td>
-                  <td class="px-4 py-2 text-left">Kadang-kadang terjadi pada saya</td>
-                </tr>
-                <tr class="border-b">
-                  <td class="px-4 py-2 text-center">4</td>
-                  <td class="px-4 py-2 text-left">Sering terjadi pada saya</td>
-                </tr>
               </tbody>
             </table>
-        </div>
+          </tab-content>
+          <!-- Third Tab -->
+          <tab-content>
+            <div class="mt-10 mx-5 w-full bg-gray-200 rounded-l-full rounded-r-full">
+              <div class="rounded-l-full rounded-r-full text-xs leading-none py-1 text-center text-white" style="width: 100%; background: #10CBE1"></div>
+            </div>
+            <table class="table-auto my-8 mx-auto text-lg text-gray-800">
+              <thead>
+                <tr class="border-b">
+                  <th class="text-left px-5">Pernyataan</th>
+                  <th class="px-5 py-3">0</th>
+                  <th class="px-5 py-3">1</th>
+                  <th class="px-5 py-3">2</th>
+                  <th class="px-5 py-3">3</th>
+                </tr>
+              </thead>
+                <t-content name="radio-15" text="Saya merasa saya hampir panik"></t-content>
+                <t-content name="radio-16" text="Saya tidak bisa antusias pada apapun"></t-content>
+                <t-content name="radio-17" text="Saya merasa saya tidak berharga sebagai manusia"></t-content>
+                <t-content name="radio-18" text="Saya merasa agak sensitif"></t-content>
+                <t-content name="radio-19" text="Saya menyadari kondisi jantung saya meskipun tidak adanya aktivitas fisik (misalnya Rasa peningkatan denyut jantung, jantung berdebar)"></t-content>
+                <t-content name="radio-20" text="Saya merasa takut tanpa alasan yang kuat"></t-content>
+                <t-content name="radio-21" text="Saya merasa bahwa hidup tidak ada artinya"></t-content>
+              <tbody>
+              </tbody>
+            </table>
+          </tab-content>
+          <button class="w-full text-sm font-semibold hover:shadow-outline text-gray-700 shadow-md py-3 px-4 rounded-lg border border-gray-400" slot="prev" @click="setFocus()">Sebelumnya</button>
+          <v-button msg="Selanjutnya" slot="next" class="border rounded-lg border-orange-300 px-4 py-3 shadow-md active:outline" @click="setFocus()"></v-button>
+          <v-button msg="Selesai" slot="finish" class="border rounded-lg border-orange-300 px-10 py-3 shadow-md" @click="setFocus()"></v-button>
+        </form-wizard>
       </div>
     </div>
   </div>
 </template>
 <script>
+import TableContent from '@/components/base/TableContent.vue'
 import Button from '@/components/Button.vue'
+import {FormWizard, TabContent} from 'vue-form-wizard'
+import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 
 export default {
-  name: 'test',
   components: {
+    't-content' : TableContent,
     'v-button' : Button,
-  }
-}
+    FormWizard,
+    TabContent
+  },
+  methods: {
+    onComplete: function(){
+        alert('Yay. Done');
+    },
+    setFocus: function()
+    {
+      // Note, you need to add a ref="search" attribute to your input.
+      this.$refs.img.focus();
+    }
+  },
+};
 </script>
 
 <style>
-
+.wizard-header{
+  display: none;
+}
+i.wizard-icon{
+  display: none !important;
+}
+.tab_shape{
+  background-color: white !important;
+}
+:focus{
+   outline:0;
+}
 </style>

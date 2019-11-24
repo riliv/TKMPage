@@ -9,8 +9,10 @@
             <p class="w-full md:w-10/12 lg:w-full mx-auto pt-3 text-gray-700 text-base text-lg lg:text-2xl mb-8 text-center lg:text-left slide-in-bottom-subtitle leading-relaxed">
                 Langkah pertama menjadi bahagia adalah dengan menyadari kondisi kesahatan mental kamu saat ini. Riliv berkomitmen memberikan layanan kesehatan mental terintegratif mulai dari pengetahuan hingga cara penanganan.
             </p>
-            <div class="w-9/12 sm:w-4/12 lg:w-6/12 mx-auto lg:ml-0 lg:block pt-4 shadow-lg">		
-                <v-button class="mx-auto py-4" msg="Mulai Assessment Sekarang" ></v-button>
+            <div class="w-9/12 sm:w-4/12 lg:w-6/12 mx-auto lg:ml-0 lg:block pt-4 shadow-lg">
+                <router-link to="/intro">
+                    <v-button class="mx-auto py-4" msg="Mulai Assessment Sekarang" ></v-button>
+                </router-link>	
             </div>
             <div class="flex flex-row pt-10 justify-center lg:justify-start">
                 <div class="flex flex-col">
