@@ -14,13 +14,13 @@
         </p>
         <div class="flex flex-row w-6/12">
           <router-link to="/test">
-            <v-button class="mx-auto py-4" msg="MULAI TES"></v-button>
+            <v-button class="mx-auto py-4 px-4" msg="MULAI TES"></v-button>
           </router-link>
           <router-link to="/" class="my-auto pl-5 text-gray-700 text-sm" style="text-decoration:underline!important;">Kembali</router-link>
         </div>
       </div>
       <div class="ml-40 w-6/12 rounded-l-lg" style="background: #10CBE1;">
-        <div class="absolute w-1/5 -ml-20 rounded-lg bg-white shadow-xl border-2 border-gray-100" style="top:65%">
+        <div class="relative w-11/12 lg:w-5/12 -ml-20 rounded-lg bg-white shadow-xl border-2 border-gray-100" style="top:70%">
           <p class="absolute border w-10/12 border-gray-200" style="top:50%"></p>
           <div class="flex py-2 flex-col w-full">
             <table class="table-auto mx-auto">
@@ -59,7 +59,7 @@
             </table>
           </div>
         </div>
-        <div class="pl-16 pt-16 text-white font-semibold">
+        <div class="pl-16 -mt-10 text-white font-semibold">
           <p class="text-2xl pb-4">Skala Jawaban</p>
           <table class="table-auto">
               <thead>
