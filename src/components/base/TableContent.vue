@@ -1,26 +1,26 @@
 <template>
 <tr class="border-b">
-    <td class="px-5 py-3">
+    <td class="px-1 sm:px-5 py-1 sm:py-3">
     <label class="inline-flex items-center">
         {{text}}
     </label>
     </td>
-    <td class="px-5 py-3">
+    <td class="px-1 sm:px-5 py-1 sm:py-3">
     <label class="inline-flex items-center">
         <input type="radio" class="form-radio" :name="name" value="0" checked>
     </label>
     </td>
-    <td class="px-5 py-3">
+    <td class="px-1 sm:px-5 py-1 sm:py-3">
     <label class="inline-flex items-center">
         <input type="radio" class="form-radio" :name="name" value="1">
     </label>
     </td>
-    <td class="px-5 py-3">
+    <td class="px-1 sm:px-5 py-1 sm:py-3">
     <label class="inline-flex items-center">
         <input type="radio" class="form-radio" :name="name" value="2">
     </label>
     </td>
-    <td class="px-5 py-3">
+    <td class="px-1 sm:px-5 py-1 sm:py-3">
     <label class="inline-flex items-center">
         <input type="radio" class="form-radio" :name="name" value="3">
     </label>

@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-20 px-10 lg:px-48 bg-blue-100">
+  <div class="scroll-here pt-20 px-10 lg:px-48 bg-blue-100">
     <!--Center-->
     <div class="pb-20">
       <h1
@@ -32,7 +32,9 @@
       </div>
       <div class="w-4/12 md:w-3/12 xl:w-2/12 mx-auto pt-16">
         <div class="shadow-lg rounded">
-          <v-button class="py-3 lg:py-4" msg="Lanjutkan"></v-button>
+          <router-link to="/intro">
+            <v-button class="py-3 lg:py-4" msg="Lanjutkan"></v-button>
+          </router-link>
         </div>
       </div>
     </div>

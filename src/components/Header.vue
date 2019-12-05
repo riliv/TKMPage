@@ -10,9 +10,7 @@
                 Langkah pertama menjadi bahagia adalah dengan menyadari kondisi kesahatan mental kamu saat ini. Riliv berkomitmen memberikan layanan kesehatan mental terintegratif mulai dari pengetahuan hingga cara penanganan.
             </p>
             <div class="w-9/12 sm:w-4/12 lg:w-6/12 mx-auto lg:ml-0 lg:block pt-4 shadow-lg">
-                <router-link to="/intro">
-                    <v-button class="mx-auto py-4" msg="Mulai Assessment Sekarang" ></v-button>
-                </router-link>	
+                <v-button v-scroll-to="'.scroll-here'" class="mx-auto py-4" msg="Mulai Assessment Sekarang" ></v-button>
             </div>
             <div class="flex flex-row pt-10 justify-center lg:justify-start">
                 <div class="flex flex-col">

@@ -3,16 +3,28 @@
     <div class="flex flex-row justify-center mb-16">
       <img ref="img" class="h-8 mt-6 object-contain" src="../assets/logo.png" alt="" />
     </div>
-    <div class="flex flex-col w-10/12 lg:w-8/12 mx-auto">
+    <div class="flex flex-col w-full sm:w-10/12 lg:w-8/12 mx-auto">
       <div class="rounded-lg overflow-hidden">
         <form-wizard shape="tab" class="w-full -mt-16" @on-complete="onComplete" ref="wizard" title="" subtitle="" transition="fade-in">
-          <p class="text-center text-3xl font-semibold">Tes Bagian 1/3</p>
+          <p class="text-center text-3xl font-semibold">Tes DASS21</p>
           <!-- First Tab -->
           <tab-content>
-            <div class="mt-10 mx-5 w-full bg-gray-200 rounded-l-full rounded-r-full">
+            <div class="w-full my-4 bg-gray-200 rounded-l-full rounded-r-full">
               <div class="rounded-l-full rounded-r-full text-xs leading-none py-1 text-center text-white" style="width: 30%; background: #10CBE1"></div>
             </div>
-            <table class="table-auto my-8 mx-auto text-lg text-gray-800">
+            <div class="mx-auto my-4 border rounded bg-gray-100">
+              <div class="w-10/12 my-4 text-sm mx-auto">
+                  <p class="text-sm text-gray-800 font-semibold my-2">Keterangan</p>
+                  <ul class="text-gray-800" style="columns: 2">
+                      <li class="flex flex-row"><div class="w-6 h-6 mr-2 my-auto rounded-lg mb-3" style="background-color:#2FD2E5;"></div>Normal</li>
+                      <li class="flex flex-row"><div class="w-6 h-6 mr-2 my-auto rounded-lg mb-3" style="background-color:#949ACB;"></div>Ringan</li>
+                      <li class="flex flex-row"><div class="w-6 h-6 mr-2 my-auto rounded-lg mb-3" style="background-color:#CF93C1;"></div>Sedang</li>
+                      <li class="flex flex-row"><div class="w-6 h-6 mr-2 my-auto rounded-lg mb-3" style="background-color:#F598AE;"></div>Parah</li>
+                      <li class="flex flex-row"><div class="w-6 h-6 mr-2 my-auto rounded-lg mb-3" style="background-color:#F58982;"></div>Sangat Parah</li>
+                  </ul>
+              </div>
+            </div>
+            <table class="table-auto my-8 mx-auto text-md sm:text-lg text-gray-800">
               <thead>
                 <tr class="border-b">
                   <th class="text-left px-5">Pernyataan</th>

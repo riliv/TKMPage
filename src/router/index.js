@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Test from '../views/Test.vue'
 import Intro from '../views/Intro.vue'
+import Subscribe from '../views/Subscribe.vue'
+import Result from '../views/Result.vue'
 
 Vue.use(VueRouter)
 
@@ -15,18 +17,22 @@ const routes = [
   {
     path: '/test',
     name: 'test',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: Test
   },
   {
     path: '/intro',
     name: 'intro',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
     component: Intro
+  },
+  {
+    path: '/subscribe',
+    name: 'subscribe',
+    component: Subscribe
+  },
+  {
+    path: '/result',
+    name: 'result',
+    component: Result
   }
 ]
 
