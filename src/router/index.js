@@ -5,6 +5,7 @@ import Test from '../views/Test.vue'
 import Intro from '../views/Intro.vue'
 import Subscribe from '../views/Subscribe.vue'
 import Result from '../views/Result.vue'
+import Registration from '../views/Registration.vue'
 
 Vue.use(VueRouter)
 
@@ -15,8 +16,15 @@ const routes = [
     component: Home
   },
   {
-    path: '/test',
+    path: '/registration/:idToken',
+    name: 'registration',
+    props: true,
+    component: Registration
+  },
+  {
+    path: '/test/:userId',
     name: 'test',
+    props: true,
     component: Test
   },
   {

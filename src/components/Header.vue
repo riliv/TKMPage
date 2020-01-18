@@ -22,7 +22,7 @@
             </div>
         </div>
         <!--Right Col-->
-        <div class="hidden xl:flex w-6/12 items-end flex-col pt-10">
+        <div class="hidden xl:flex w-5/12 xl:w-7/12 items-end flex-col pt-10 pl-20">
             <img class="object-contain" src="../assets/section-1.png" alt="">
         </div>
     </div>

@@ -59,7 +59,7 @@
             butuh bantuan lebih. Atau jika kamu merasa tes ini bermanfaat, anda
             dapat mengajak teman anda
           </p>
-          <div class="flex flex-row w-6/12 mx-auto">
+          <div class="flex flex-row w-full lg:w-6/12 mx-auto">
             <v-button class="py-3 m-4 rounded-lg" msg="Ajak Teman" variant="alternative"></v-button>
             <v-button class="py-3 m-4 rounded-lg" msg="Dapatkan Bantuan"></v-button>
           </div>
@@ -135,7 +135,7 @@ export default {
                 },
                 legend: {
                     show: false,
-                    position: "bottom",
+                    position: "right",
                     offsetX: 0,
                     offsetY: 50
                 },

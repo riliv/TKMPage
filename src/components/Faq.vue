@@ -6,7 +6,7 @@
                 Mengenai Tes Kesehatan Mental
             </h1>
             <div>
-                <dropdown :items="items" class="w-full lg:w-10/12 mx-auto"></dropdown>
+                <dropdown :items="items" class="w-full lg:w-10/12 xl:w-full mx-auto"></dropdown>
             </div>
         </div>
     </div>
