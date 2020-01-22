@@ -14,6 +14,7 @@
               type="bar"
               :options="chartOptions"
               :series="series"
+              :key="this.series[0].data[0]"
             ></apexchart>
           </div>
           <div class="mx-auto border rounded bg-gray-100">
@@ -33,8 +34,8 @@
           <tabs>
             <tab name="Depression" :selected="true">
                 <ul>
-                    <li>Depresssion Description</li>
-                    <li>and another text here</li>
+                    <li>Terima kasih karena kamu telah memilih untuk mencari tahu kondisi kesehatan mentalmu. Mengikuti tes kesehatan mental sama sekali bukanlah hal yang tabu.</li><br>
+                    <li>Berdasarkan jawaban yang kamu berikan, jika skormu berada di bawah 10, maka kamu bisa terus merawat dan lebih perhatian kepada hal-hal yang mungkin membuatmu tidak nyaman secara berkala.</li>
                 </ul>
             </tab>
             <tab name="Anxiety">
@@ -75,9 +76,11 @@ import Button from "@/components/Button.vue";
 import Tab from "@/components/Tab.vue";
 import Tabs from "@/components/base/Tabs.vue";
 import VueApexCharts from "vue-apexcharts";
+import axios from "axios"
 import backgroundUrl from "../assets/bg-illustration.png";
 
 export default {
+    props: ['userId'],
     components: {
         "v-button": Button,
         Tabs,
@@ -87,72 +90,77 @@ export default {
     data: function() {
         return {
             backgroundUrl,
+            output: [],
+            level: [],
             series: [{
-            name: 'Good',
-            data: [10, 8, 15]
-            }, {
-            name: 'Mild',
-            data: [4, 2, 4]
-            }, {
-            name: 'Moderate',
-            data: [7, 5, 7]
-            }, {
-            name: 'Severe',
-            data: [7, 5, 8]
-            }, {
-            name: 'Extremely Severe',
-            data: [14, 22, 8]
+              name: 'Score',
+              data: [0,0,0]
             }],
-            chartOptions: {
-                chart: {
-                    stacked: true,
-                    stackType: "normal"
-                },
-                responsive: [
-                {
-                    breakpoint: 480,
-                    options: {
-                    legend: {
-                        position: "bottom",
-                        offsetX: -10,
-                        offsetY: 0
-                    }
-                    }
-                }
-                ],
-                xaxis: {
-                    categories: [
-                        "Depression",
-                        "Anxiety",
-                        "Stress",
-                    ],
-                },
-                yaxis: {
-                    max: 42,
-                },
-                fill: {
-                    opacity: 1
-                },
-                legend: {
-                    show: false,
-                    position: "right",
-                    offsetX: 0,
-                    offsetY: 50
-                },
-                dataLabels: {
-                    enabled: false,
-                },
-                tooltip: {
-                    custom: function({series, seriesIndex, dataPointIndex}) {
-                        return '<div class="rounded bg-gray-700 shadow-xl">' +
-                        '<span class="px-2 text-sm text-white">Your Score is: ' + series[seriesIndex][dataPointIndex] + '</span>' +
-                        '</div>'
-                    }
-                },
-                colors:['#2FD2E5', '#949ACB', '#CF93C1', '#F598AE', '#F58982'],
+            chartOptions: {   
+              chart: {
+                id: 'vuechart-example'
+              },
             }
         };
     },
+    mounted() {
+      axios
+      .get("http://127.0.0.1:3333/api/v0/tkm/result/"+this.userId)
+      .then( response => (
+        this.output = response.data,
+        this.level = [
+          this.output.depression_level,
+          this.output.anxiety_level,
+          this.output.stress_level
+        ],
+        this.series = [{
+          data: [
+            this.output.depression_score,
+            this.output.anxiety_score,
+            this.output.stress_score
+          ]
+        }],
+        this.chartOptions = {
+          chart: {
+            id: 'vuechart-example'
+          },
+          xaxis: {
+            categories: ['Depression', 'Anxiety', 'Stress']
+          },
+          tooltip: {
+            enabled: false
+          },
+          plotOptions: {
+            bar: {
+              distributed: true
+            },
+          },
+          colors: [
+            this.getColor(this.output.depression_level), 
+            this.getColor(this.output.anxiety_level),
+            this.getColor(this.output.stress_level)
+          ]
+        }
+      ))
+      .catch( error => (
+        this.output = error.response
+      ))
+    },
+    methods: {
+      getColor(level) {
+        if (level == 'Normal') {
+            return '#2FD2E5'
+        } else if (level == 'Ringan') {
+            return '#949ACB'
+        } else if (level == 'Sedang') {
+            return '#CF93C1'
+        } else if (level == 'Parah') {
+            return '#F598AE'
+        } {
+            return '#F58982'
+        }
+      }
+    }
 };
 </script>
 

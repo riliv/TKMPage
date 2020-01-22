@@ -38,8 +38,9 @@ const routes = [
     component: Subscribe
   },
   {
-    path: '/result',
+    path: '/result/:userId',
     name: 'result',
+    props: true,
     component: Result
   }
 ]

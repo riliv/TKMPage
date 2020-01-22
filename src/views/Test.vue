@@ -6,7 +6,7 @@
     <div class="flex flex-col w-full sm:w-10/12 lg:w-8/12 mx-auto">
       <div class="rounded-lg overflow-hidden">
         <form-wizard shape="tab" class="w-full -mt-16" @on-complete="onComplete" ref="wizard" title="" subtitle="" transition="fade-in">
-          <p class="text-center text-3xl font-semibold">Tes DASS21</p>
+          <p class="text-center text-3xl font-semibold" @click.prevent="submit">Tes DASS21</p>
           <div class="mx-auto my-4 border rounded bg-gray-100 select-none">
             <div class="w-11/12 my-4 text-sm mx-auto" :class="accordionClasses">
                 <div @click="toggleAccordion" class="flex flex-row cursor-pointer">
@@ -143,6 +143,7 @@ import TableContent from '@/components/base/TableContent.vue'
 import Button from '@/components/Button.vue'
 import {FormWizard, TabContent} from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
+import axios from "axios"
 
 
 export default {
@@ -150,6 +151,8 @@ export default {
   data: function() {
     return {
       isOpen: true,
+      soal: [],
+      output: [],
     }
   },
   components: {
@@ -170,6 +173,40 @@ export default {
     toggleAccordion: function() {
       this.isOpen = !this.isOpen;
     },
+
+    /* eslint-disable no-console */
+    async submit() {
+      this.soal = []
+
+      for (var i = 1; i <= 21; i++) { 
+        var getAnswer = document.querySelector("input[type=hidden][name=radio-"+i+"]").value;
+        var integerAnswer =  parseInt(getAnswer, 10);
+        
+        this.soal.push({
+          id: i,
+          answer: integerAnswer
+        });
+      }
+
+      const userId = this.userId
+
+      await axios
+        .post('http://127.0.0.1:3333/api/v0/tkm/answers', {
+            user_id: this.userId,
+            soal: this.soal,
+        })
+        .then( response => (
+            console.log(response.data),
+            this.output = response.data,
+            this.userId = response.data.user_id,
+            this.$router.push({ name: 'result', params: { userId } })
+        ))
+        .catch( error => (
+            console.log(error.response),
+            this.output = error.response
+        ));
+    }
+    /* eslint-enable no-console */
   },
   computed: {
       accordionClasses: function() {
