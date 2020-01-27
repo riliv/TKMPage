@@ -191,7 +191,7 @@ export default {
       const userId = this.userId
 
       await axios
-        .post('http://127.0.0.1:3333/api/v0/tkm/answers', {
+        .post('http://tkm.riliv.co.id/api/v0/tkm/answers', {
             user_id: this.userId,
             soal: this.soal,
         })

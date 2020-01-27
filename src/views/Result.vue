@@ -197,7 +197,7 @@ export default {
     },
     mounted() {
       axios
-      .get("http://127.0.0.1:3333/api/v0/tkm/result/"+this.userId)
+      .get("http://tkm.riliv.co.id/api/v0/tkm/result/"+this.userId)
       .then( response => (
         this.output = response.data,
         this.level = [

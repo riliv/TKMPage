@@ -249,7 +249,7 @@ export default {
     )
 
     await axios
-    .post('http://127.0.0.1:3333/api/v0/tkm/auth/login', {
+    .post('http://tkm.riliv.co.id/api/v0/tkm/auth/login', {
         name: this.clientData.given_name,
         avatar: this.clientData.picture,
         email: this.clientData.email,
@@ -310,7 +310,7 @@ export default {
       console.log(date)
 
       axios
-        .post('http://127.0.0.1:3333/api/v0/tkm/user/register', {
+        .post('http://tkm.riliv.co.id/api/v0/tkm/user/register', {
             user_id: this.output.user_id,
             provinsi: this.state.province,
             kabupaten: this.state.regency,
