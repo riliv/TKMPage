@@ -5,8 +5,8 @@
     </div>
     <div class="flex flex-col w-full sm:w-10/12 lg:w-8/12 mx-auto">
       <div class="rounded-lg overflow-hidden">
-        <form-wizard shape="tab" class="w-full -mt-16" @on-complete="onComplete" ref="wizard" title="" subtitle="" transition="fade-in">
-          <p class="text-center text-3xl font-semibold" @click.prevent="submit">Tes DASS21</p>
+        <form-wizard shape="tab" class="w-full -mt-16" @on-complete="submit" ref="wizard" title="" subtitle="" transition="fade-in">
+          <p class="text-center text-3xl font-semibold">Tes DASS21</p>
           <div class="mx-auto my-4 border rounded bg-gray-100 select-none">
             <div class="w-11/12 my-4 text-sm mx-auto" :class="accordionClasses">
                 <div @click="toggleAccordion" class="flex flex-row cursor-pointer">
@@ -162,9 +162,6 @@ export default {
     TabContent
   },
   methods: {
-    onComplete: function(){
-        alert('Yay. Done');
-    },
     setFocus: function()
     {
       // Note, you need to add a ref="search" attribute to your input.
