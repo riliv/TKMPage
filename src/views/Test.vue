@@ -124,7 +124,7 @@
           </tab-content>
           <button class="w-full text-sm font-semibold hover:shadow-outline text-gray-700 shadow-md py-3 px-4 rounded-lg border border-gray-400" slot="prev" @click="setFocus()">Sebelumnya</button>
           <v-button msg="Selanjutnya" slot="next" class="border rounded-lg border-orange-300 px-4 py-3 shadow-md active:outline" @click="setFocus()"></v-button>
-          <v-button msg="Selesai" slot="finish" class="border rounded-lg border-orange-300 px-10 py-3 shadow-md" @click="setFocus()"></v-button>
+          <v-button msg="Selesai" slot="finish" class="border rounded-lg border-orange-300 px-10 py-3 shadow-md" :class="loadingClasses" @click="setFocus()"></v-button>
         </form-wizard>
       </div>
       <div class="flex flex-row mt-4">
@@ -151,6 +151,7 @@ export default {
   data: function() {
     return {
       isOpen: true,
+      isLoading: false,
       soal: [],
       output: [],
     }
@@ -170,6 +171,9 @@ export default {
     toggleAccordion: function() {
       this.isOpen = !this.isOpen;
     },
+    toggleLoading: function() {
+      this.isLoading = !this.isLoading;
+    },
 
     /* eslint-disable no-console */
     async submit() {
@@ -186,6 +190,8 @@ export default {
       }
 
       const userId = this.userId
+
+      this.toggleLoading()
 
       await axios
         .post('https://tkm.riliv.co.id/api/v0/tkm/answers', {
@@ -212,6 +218,12 @@ export default {
               'is-primary': this.isOpen,
               'is-dark': !this.isOpen
           };
+      },
+      loadingClasses: function() {
+        return {
+          'spinner': this.isLoading,
+          '': !this.isLoading
+        }
       },
   },
 };
