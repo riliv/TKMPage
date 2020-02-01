@@ -1,7 +1,7 @@
 <template>
   <div class="font-sans">
     <div class="flex flex-row justify-center mb-16">
-      <img ref="img" class="h-8 mt-6 object-contain" src="../assets/logo.png" alt="" />
+      <img class="h-8 mt-6 object-contain focus-here" src="../assets/logo.png" alt="" />
     </div>
     <div class="flex flex-col w-full sm:w-10/12 lg:w-8/12 mx-auto">
       <div class="rounded-lg overflow-hidden">
@@ -122,9 +122,9 @@
               </tbody>
             </table>
           </tab-content>
-          <button class="w-full text-sm font-semibold hover:shadow-outline text-gray-700 shadow-md py-3 px-4 rounded-lg border border-gray-400" slot="prev" @click="setFocus()">Sebelumnya</button>
-          <v-button msg="Selanjutnya" slot="next" class="border rounded-lg border-orange-300 px-4 py-3 shadow-md active:outline" @click="setFocus()"></v-button>
-          <v-button msg="Selesai" slot="finish" class="border rounded-lg border-orange-300 px-10 py-3 shadow-md" :class="loadingClasses" @click="setFocus()"></v-button>
+          <button class="w-full text-sm font-semibold hover:shadow-outline text-gray-700 shadow-md py-3 px-4 rounded-lg border border-gray-400" slot="prev" v-scroll-to="'.focus-here'">Sebelumnya</button>
+          <v-button msg="Selanjutnya" slot="next" class="border rounded-lg border-orange-300 px-4 py-3 shadow-md active:outline" v-scroll-to="'.focus-here'"></v-button>
+          <v-button msg="Selesai" slot="finish" class="border rounded-lg border-orange-300 px-10 py-3 shadow-md" :class="loadingClasses"></v-button>
         </form-wizard>
       </div>
       <div class="flex flex-row mt-4">
