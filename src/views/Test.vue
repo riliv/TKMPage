@@ -5,7 +5,9 @@
     </div>
     <div class="flex flex-col w-full sm:w-10/12 lg:w-8/12 mx-auto">
       <div class="rounded-lg overflow-hidden">
-        <form-wizard shape="tab" class="w-full -mt-16" @on-complete="submit" ref="wizard" title="" subtitle="" transition="fade-in">
+        <ValidationObserver v-slot="{ handleSubmit }">
+
+        <form-wizard shape="tab" class="w-full -mt-16" @on-complete="handleSubmit(submit)" ref="wizard" title="" subtitle="" transition="fade-in">
           <p class="text-center text-3xl font-semibold">Tes DASS21</p>
           <div class="mx-auto my-4 border rounded bg-gray-100 select-none">
             <div class="w-11/12 my-4 text-sm mx-auto" :class="accordionClasses">
@@ -45,13 +47,13 @@
             </div>
           </div>
           <!-- First Tab -->
-          <tab-content>
+          <tab-content :before-change="nextTab">
             <div class=" bg-gray-200 rounded-l-full rounded-r-full">
               <div class="rounded-l-full rounded-r-full text-xs leading-none py-1 text-center text-white" style="background: #10CBE1; width: 33%;"></div>
             </div>
-            <table class="table-auto my-8 mx-auto text-md sm:text-lg text-gray-800">
-              <thead>
-                <tr class="border-b">
+            <table class="responsive-table table-auto my-8 mx-auto text-md sm:text-lg text-gray-800">
+              <thead class="responsive-table">
+                <tr class="responsive-table border-b">
                   <th class="text-left px-5">Pernyataan</th>
                   <th class="px-5 py-3">0</th>
                   <th class="px-5 py-3">1</th>
@@ -62,10 +64,10 @@
                 <t-content name="radio-1" text="Saya merasa sulit untuk beristirahat"></t-content>
                 <t-content name="radio-2" text="Saya menyadari mulut saya kering"></t-content>
                 <t-content name="radio-3" text="Sepertinya saya tidak bisa merasakan perasaan positif sama sekali"></t-content>
-                <t-content name="radio-4" text="Saya mengalami kondisi sulit bernafas (mis. Bernafas sangat cepat, sesak nafas tanpa adanya aktivitas fisik)"></t-content>
+                <t-content name="radio-4" text="Saya mengalami kondisi sulit bernafas" subtext="seperti: bernafas sangat cepat atau sesak nafas tanpa adanya aktivitas fisik"></t-content>
                 <t-content name="radio-5" text="Saya merasa sulit untuk membangun keinginan melakukan sesuatu"></t-content>
                 <t-content name="radio-6" text="Saya cenderung bereaksi berlebihan terhadap situasi"></t-content>
-                <t-content name="radio-7" text="Saya mengalami tubuh saya gemetar (misal di tangan)"></t-content>
+                <t-content name="radio-7" text="Saya mengalami tubuh saya gemetar" subtext="seperti: tangan bergemetar"></t-content>
               <tbody>
               </tbody>
             </table>
@@ -77,7 +79,7 @@
             </div>
             <table class="table-auto my-8 mx-auto text-lg text-gray-800">
               <thead>
-                <tr class="border-b">
+                <tr class="responsive-table border-b">
                   <th class="text-left px-5">Pernyataan</th>
                   <th class="px-5 py-3">0</th>
                   <th class="px-5 py-3">1</th>
@@ -85,7 +87,7 @@
                   <th class="px-5 py-3">3</th>
                 </tr>
               </thead>
-                <t-content name="radio-8" text="Saya merasa terlalu sering melakukan aktivitas otomatis untuk merespon cemas (Misal: Menggigit kuku, menarik nafas panjang berulang, bicara banyak saat cemas, memotong pembicaraan yang membuat cemas, dsb.)"></t-content>
+                <t-content name="radio-8" text="Saya merasa terlalu sering melakukan aktivitas otomatis untuk merespon cemas" subtext="Contoh: menggigit kuku, menarik nafas panjang berulang, bicara banyak saat cemas, memotong pembicaraan yang membuat cemas, dsb."></t-content>
                 <t-content name="radio-9" text="Saya khawatir tentang situasi di mana saya mungkin panik dan mempermalukan diri sendiri"></t-content>
                 <t-content name="radio-10" text="Saya merasa tidak ada yang bisa saya harapkan"></t-content>
                 <t-content name="radio-11" text="Saya merasa gelisah"></t-content>
@@ -103,7 +105,7 @@
             </div>
             <table class="table-auto my-8 mx-auto text-lg text-gray-800">
               <thead>
-                <tr class="border-b">
+                <tr class="responsive-table border-b">
                   <th class="text-left px-5">Pernyataan</th>
                   <th class="px-5 py-3">0</th>
                   <th class="px-5 py-3">1</th>
@@ -115,7 +117,7 @@
                 <t-content name="radio-16" text="Saya tidak bisa antusias pada apapun"></t-content>
                 <t-content name="radio-17" text="Saya merasa saya tidak berharga sebagai manusia"></t-content>
                 <t-content name="radio-18" text="Saya merasa agak sensitif"></t-content>
-                <t-content name="radio-19" text="Saya menyadari kondisi jantung saya meskipun tidak adanya aktivitas fisik (misalnya Rasa peningkatan denyut jantung, jantung berdebar)"></t-content>
+                <t-content name="radio-19" text="Saya menyadari kondisi jantung saya meskipun tidak adanya aktivitas fisik" subtext="Misal: dapat merasa peningkatan denyut jantung, jantung berdebar"></t-content>
                 <t-content name="radio-20" text="Saya merasa takut tanpa alasan yang kuat"></t-content>
                 <t-content name="radio-21" text="Saya merasa bahwa hidup tidak ada artinya"></t-content>
               <tbody>
@@ -126,6 +128,8 @@
           <v-button msg="Selanjutnya" slot="next" class="border rounded-lg border-orange-300 px-4 py-3 shadow-md active:outline" v-scroll-to="'.focus-here'"></v-button>
           <v-button msg="Selesai" slot="finish" class="border rounded-lg border-orange-300 px-10 py-3 shadow-md" :class="loadingClasses"></v-button>
         </form-wizard>
+
+        </ValidationObserver>
       </div>
       <div class="flex flex-row mt-4">
         <div class="flex flex-col w-full rounded-t-lg bg-gray-100 border">
@@ -139,12 +143,12 @@
   </div>
 </template>
 <script>
+
 import TableContent from '@/components/base/TableContent.vue'
 import Button from '@/components/Button.vue'
 import {FormWizard, TabContent} from 'vue-form-wizard'
 import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 import axios from "axios"
-
 
 export default {
   props: ['userId'],
@@ -154,6 +158,7 @@ export default {
       isLoading: false,
       soal: [],
       output: [],
+      errors: '',
     }
   },
   components: {
@@ -174,7 +179,9 @@ export default {
     toggleLoading: function() {
       this.isLoading = !this.isLoading;
     },
-
+    nextTab() {
+      return true
+    },
     /* eslint-disable no-console */
     async submit() {
       this.soal = []
@@ -194,7 +201,7 @@ export default {
       this.toggleLoading()
 
       await axios
-        .post('https://tkm.riliv.co.id/api/v0/tkm/answers', {
+        .post('http://api.tkm.riliv.co.id/api/v0/tkm/answers', {
             user_id: this.userId,
             soal: this.soal,
         })
@@ -221,7 +228,7 @@ export default {
       },
       loadingClasses: function() {
         return {
-          'spinner': this.isLoading,
+          'spinner cursor-wait': this.isLoading,
           '': !this.isLoading
         }
       },

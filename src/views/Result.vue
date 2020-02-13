@@ -3,12 +3,15 @@
     <div class="flex flex-row justify-center mb-16">
       <img class="h-10 mt-6 object-contain" src="../assets/logo.png" alt="" />
     </div>
-    <div class="flex flex-col w-10/12 mx-auto mb-16">
+    <div class="flex flex-col w-10/12 mx-auto mb-24">
       <p class="mx-auto text-2xl text-gray-800 font-bold">Hasil Tes</p>
-      <div class="flex flex-col md:flex-row mb-10">
-        <div class="py-5 mr-10 w-full md:w-4/12">
+      <div class="flex flex-col lg:flex-row mb-10">
+        <div class="py-5 mr-10 w-full lg:w-4/12">
           <p class="text-xl">Grafik Hasil</p>
           <div class="w-full">
+            <div class="absolute z-10 floating" :class=" { 'hidden' : this.output.status != '400' } " style="top: 50%; left: 50%; transform: translate(-50%, -50%)">
+              <p class="flex h-8 items-center rounded-lg border p-5 font-semibold bg-gray-100">No Data 😞</p>
+            </div>
             <apexchart
               width="100%"
               height="350"
@@ -16,38 +19,47 @@
               :options="chartOptions"
               :series="series"
               :key="this.series[0].data[0]"
+              :class=" { 'isLoaded' : this.output.status == '400' }"
             ></apexchart>
           </div>
           <div class="mx-auto border rounded bg-gray-100">
             <div class="my-4 text-sm mx-auto">
                 <p class="ml-4 text-base text-gray-800 font-semibold my-2">Keterangan Grafik</p>
-                <div class="ml-4 mt-6 flex flex-row my-4">
+                <div class="w-10/12 mx-auto mt-6 my-4">
                     <ul class="text-gray-800 text-xs">
-                        <li class="w-full flex flex-row mb-3">
-                          <div class="w-6 h-6 rounded-lg" style="background-color:#2FD2E5;"></div>
-                          <p class="font-semibold text-gray-700 ml-1 my-auto">Normal</p>
+                        <li class="inline-block mb-3 w-6/12">
+                          <div class="flex flex-row">
+                            <div class="w-6 h-6 rounded-lg" style="background-color:#2FD2E5;"></div>
+                            <p class="font-semibold text-gray-700 ml-1 my-auto">Normal</p>
+                          </div>
                         </li>
-                        <li class="flex flex-row mb-3">
-                          <div class="w-6 h-6 rounded-lg" style="background-color:#CF93C1;"></div>
-                          <p class="font-semibold text-gray-700 ml-1 my-auto">Sedang</p>
-                          </li>
-                        <li class="flex flex-row mb-3 -pr-8">
-                          <div class="w-6 h-6 rounded-lg" style="background-color:#F58982;"></div>
-                          <p class="font-semibold text-gray-700 ml-1 my-auto">Sangat Parah</p>
-                          </li>
-                    </ul>
-                    <ul class="text-gray-800 text-xs mx-auto">
-                        <li class="w-full flex flex-row mb-3">
-                          <div class="w-6 h-6 rounded-lg" style="background-color:#949ACB;"></div>
-                          <p class="font-semibold text-gray-700 ml-1 my-auto">Ringan</p>
+                        <li class="inline-block mb-3 w-6/12">
+                          <div class="flex flex-row">
+                            <div class="w-6 h-6 rounded-lg" style="background-color:#949ACB;"></div>
+                            <p class="font-semibold text-gray-700 ml-1 my-auto">Ringan</p>
+                          </div>
                         </li>
-                        <li class="flex flex-row mb-3">
-                          <div class="w-6 h-6 rounded-lg" style="background-color:#F598AE;"></div>
-                          <p class="font-semibold text-gray-700 ml-1 my-auto">Parah</p>
+                        <li class="inline-block mb-3 w-6/12">
+                          <div class="flex flex-row">
+                            <div class="w-6 h-6 rounded-lg" style="background-color:#CF93C1;"></div>
+                            <p class="font-semibold text-gray-700 ml-1 my-auto">Sedang</p>
+                          </div>
+                        </li>
+                        <li class="inline-block mb-3 w-6/12">
+                          <div class="flex flex-row">
+                            <div class="w-6 h-6 rounded-lg" style="background-color:#F598AE;"></div>
+                            <p class="font-semibold text-gray-700 ml-1 my-auto">Parah</p>
+                          </div>
+                        </li>
+                        <li class="inline-block mb-3 w-6/12">
+                          <div class="flex flex-row">
+                            <div class="w-6 h-6 rounded-lg" style="background-color:#F58982;"></div>
+                            <p class="font-semibold text-gray-700 ml-1 my-auto">Sangat Parah</p>
+                          </div>
                         </li>
                     </ul>
                 </div>
-                <table class="w-11/12 table-auto mx-auto lg:mx-2 text-gray-700 text-xs text-center">
+                <table class="table-auto w-11/12 table-fixed mx-auto text-gray-700 text-xs text-center leading-snug ">
                   <thead>
                     <tr>
                       <th class="px-2 py-2 font-semibold">Level</th>
@@ -145,19 +157,68 @@
           </tabs>
         </div>
       </div>
-      <div class="rounded-t-lg bg-cyan-400 bg-contain bg-bottom bg-no-repeat" :style="{ backgroundImage: `url(${backgroundUrl})` }">
-        <div class="flex flex-col w-8/12 mx-auto py-20">
-          <p class="text-white text-center text-xl">
-            Jika anda merasa hasil tes anda tidak bagus, mungkin anda sedang
-            butuh bantuan lebih. Atau jika kamu merasa tes ini bermanfaat, anda
-            dapat mengajak teman anda
+      <div class="rounded-lg bg-cyan-400 bg-cover bg-bottom bg-no-repeat" :style="{ backgroundImage: `url(${background.biru})` }">
+        <div class="flex flex-col w-8/12 mx-auto py-16">
+          <p class="text-white text-center text-xl outline">
+            Apakah Anda membutuhkan bantuan psikologis profesional? 
           </p>
-          <div class="flex flex-row w-full lg:w-6/12 mx-auto">
-            <v-button class="py-3 m-4 rounded-lg" msg="Ajak Teman" variant="alternative"></v-button>
-            <v-button class="py-3 m-4 rounded-lg" msg="Dapatkan Bantuan"></v-button>
+          <p class="text-white text-center text-xl">
+            Dapatkan bantuan dari Tenaga Psikolog terdekat sekarang
+          </p>
+          <div class="flex flex-row w-full lg:w-6/12 mx-auto mt-8">
+            <a href="https://ehealth.surabaya.go.id/pendaftaran/" class="flex flex-none mx-auto">
+              <v-button class="py-4 px-5 mx-1 rounded-lg" msg="Dapatkan Bantuan"></v-button>
+            </a>
           </div>
         </div>
         <!-- <img class="relative w-full top-0" src="../assets/bg-illustration.png" alt="Footer illustration"> -->
+      </div>
+    </div>
+    <div class="flex flex-col items-center mb-24">
+      <div class="flex flex-col md:flex-row w-11/12 md:w-8/12">
+        <img class="object-contain w-6/12 h-full md:w-4/12 mx-auto py-6" src="../assets/illustration-doctor.png">
+        <div class="flex flex-col text-center md:text-left text-gray-800 my-auto md:ml-16">
+          <p class="text-4xl font-semibold">Ikuti tes lagi</p>
+          <p class="text-xl leading-relaxed mt-2">Anda dapat melakukan Tes Kesehatan Mental lagi setelah 10 hari terhitung dari anda melakukan tes kesehatan mental sebelumnya</p>
+          <div class="w-5/12 md:w-4/12 mx-auto md:mx-0 mt-4">
+            <v-button class="py-3 text-xs" msg="Ikuti tes lagi"></v-button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col bg-cover"  :style="{ backgroundImage: `url(${background.orange})` }">
+      <div class="flex flex-row my-8 mx-4">
+        <div class="flex flex-col w-8/12 sm:w-5/12 lg:w-4/12 justify-center mx-auto">
+          <p class="text-xl md:text-4xl font-bold text-white" >Apakah Anda merasa tes ini bermanfaat?</p>
+          <p class="md:text-lg mt-1 leading-relaxed text-white">Ajak teman Anda untuk mengetahui lebih dalam tentang kondisi mentalnya!</p>
+          <div class="w-6/12 md:w-4/12 mt-6">
+            <v-button class="py-2" msg="Ajak Teman" variant="alternative"></v-button>
+          </div>
+        </div>
+        <img class="object-contain justify-end w-4/12 h-full md:w-3/12 mx-auto py-6" src="../assets/illustration-friends.png">
+      </div>
+    </div>
+    <div class="flex flex-col bg-cover" :style="{ backgroundImage: `url(${background.ungu})` }">
+      <div class="flex flex-row my-12 mx-4">
+        <img class="object-contain justify-end w-3/12 h-full mx-auto mr-0 pt-6" src="../assets/illustration-coupon.png">
+        <div class="flex flex-col w-7/12 sm:w-5/12 lg:w-5/12 justify-center text-white mx-auto">
+          <p class="text-xl md:text-3xl font-bold">Kode Voucher</p>
+          <div class="flex flex-row">
+            <div class="flex w-full lg:w-1/2 xl:w-5/12 my-3 rounded border-2">
+              <p class="mx-auto py-2 px-2 font-semibold text-normal sm:text-lg">RILIVSURABAYAMU</p>
+            </div>
+            <svg @click="doCopy" class="w-10 h-10 my-auto ml-4 cursor-pointer" xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+              <g class="fill-current" transform="translate(512.000000,512.000000) scale(0.100000,-0.100000) rotate(90)" fill="#000000" stroke="none">
+              <path d="M1608 4679 c-68 -16 -152 -66 -204 -121 -70 -74 -103 -142 -119 -245 l-7 -43 1389 -2 1388 -3 3 -1384 2 -1384 57 6 c165 17 320 167 352 342 15 78 15 2419 1 2495 -26 135 -118 252 -243 311 l-72 34 -1255 2 c-708 0 -1271 -3 -1292 -8z"/>
+              <path d="M772 3829 c-126 -24 -246 -120 -303 -242 l-34 -72 0 -1275 0 -1275 34 -72 c59 -125 176 -217 311 -243 76 -14 2417 -14 2495 1 132 24 245 111 306 234 l34 70 0 1285 0 1285 -34 70 c-61 123 -174 210 -306 234 -71 13 -2436 13 -2503 0z m2428 -1589 l0 -1180 -1172 2 -1173 3 -3 1165 c-1 641 0 1171 3 1178 3 9 248 12 1175 12 l1170 0 0 -1180z"/>
+              </g>
+            </svg>
+          </div>
+          <p class="md:text-lg mt-1 leading-relaxed text-indigo-100">Anda bisa memasukkan kode voucher di atas dalam aplikasi RILIV untuk mendapatkan GRATIS satu bulan Meditasi bersama Riliv Hening</p>
+          <div class="w-6/12 md:w-5/12 mt-6">
+            <v-button class="py-3" msg="Coba Aplikasi" variant="default"></v-button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -169,7 +230,10 @@ import Tab from "@/components/Tab.vue";
 import Tabs from "@/components/base/Tabs.vue";
 import VueApexCharts from "vue-apexcharts";
 import axios from "axios"
-import backgroundUrl from "../assets/bg-illustration.png";
+
+import ungu from "../assets/bg_ungu.png";
+import orange from "../assets/bg_orange.png";
+import biru from "../assets/bg_biru.png";
 
 export default {
     props: ['userId'],
@@ -177,11 +241,17 @@ export default {
         "v-button": Button,
         Tabs,
         Tab,
-        apexchart: VueApexCharts
+        apexchart: VueApexCharts,
     },
     data: function() {
         return {
-            backgroundUrl,
+            couponCode: 'RILIVSURABAYAMU',
+            isLoading: true,
+            background: {
+              ungu,
+              orange,
+              biru
+            },
             output: [],
             level: [],
             series: [{
@@ -197,7 +267,7 @@ export default {
     },
     mounted() {
       axios
-      .get("https://tkm.riliv.co.id/api/v0/tkm/result/"+this.userId)
+      .get("http://api.tkm.riliv.co.id/api/v0/tkm/result/"+this.userId)
       .then( response => (
         this.output = response.data,
         this.level = [
@@ -255,9 +325,35 @@ export default {
         } {
             return '#F58982'
         }
+      },
+      toggleLoading: function() {
+        this.isLoading = !this.isLoading;
+      },
+      doCopy() {
+        this.$copyText(this.couponCode).then(function () {
+          alert('Kode voucher berhasil di salin! \n \nAnda bisa memasukkan kode voucher di atas dalam aplikasi RILIV untuk mendapatkan GRATIS satu bulan Meditasi bersama Riliv Hening')
+        }, function () {
+          alert('Failed')
+        })
       }
     }
 };
 </script>
+<style>
+.isLoaded {
+  filter: blur(5px);
+}
 
-<style></style>
+.floating {  
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes floating {
+    from { transform: translate(-50%,  -10px); }
+    65%  { transform: translate(-50%, 0px); }
+    to   { transform: translate(-50%, -10px); }    
+}
+</style>

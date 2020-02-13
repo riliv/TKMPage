@@ -33,7 +33,7 @@ name: 'Button',
       if (this.variant == 'default'){
         return 'hover:shadow-outline-orange'
       } else if (this.variant == 'alternative') {
-        return 'hover:bg-gray-300 hover:text-gray-700 border-2 bg-cyan-400'
+        return 'hover:bg-gray-300 hover:text-gray-700 border-2 bg-transparent shadow-none'
       } else {
         return 'hover:shadow-outline-orange'
       }

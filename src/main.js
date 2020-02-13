@@ -4,6 +4,24 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import './assets/css/tailwind.css'
+import { ValidationObserver, ValidationProvider, extend, localize} from 'vee-validate';
+import en from 'vee-validate/dist/locale/en.json';
+import * as rules from 'vee-validate/dist/rules';
+import VueClipboard from 'vue-clipboard2'
+
+
+// install rules and localization
+Object.keys(rules).forEach(rule => {
+  extend(rule, rules[rule]);
+});
+
+localize('en', en);
+
+// Install components globally
+Vue.component('ValidationObserver', ValidationObserver);
+Vue.component('ValidationProvider', ValidationProvider);
+
+Vue.use(VueClipboard)
 
 Vue.config.productionTip = false
 
