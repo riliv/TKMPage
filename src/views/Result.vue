@@ -181,7 +181,15 @@
           <p class="text-4xl font-semibold">Ikuti tes lagi</p>
           <p class="text-xl leading-relaxed mt-2">Anda dapat melakukan Tes Kesehatan Mental lagi setelah 10 hari terhitung dari anda melakukan tes kesehatan mental sebelumnya</p>
           <div class="w-5/12 md:w-4/12 mx-auto md:mx-0 mt-4">
-            <v-button class="py-3 text-xs" msg="Ikuti tes lagi"></v-button>
+            <v-button class="py-3 text-xs" msg="Ikuti tes lagi" @click.native="toggleModal"></v-button>
+            <modal v-show="isModalVisible" @close="toggleModal">
+              <div slot="header" class="mx-auto text-center w-11/12 mt-12">
+                <p class="font-bold text-gray-800">Mohon Maaf, tunggu 7 hari lagi</p>
+              </div>
+              <div slot="body" class="w-8/12 text-lg mx-auto mb-10">
+                <p class="text-gray-700">Anda belum dapat melakukan Tes Kesehatan Mental lagi. Anda harus menunggu selama 10 hari setelah melakukan tes terakhir.</p>
+              </div>
+            </modal>
           </div>
         </div>
       </div>
@@ -230,6 +238,7 @@ import Tab from "@/components/Tab.vue";
 import Tabs from "@/components/base/Tabs.vue";
 import VueApexCharts from "vue-apexcharts";
 import axios from "axios"
+import modal from "@/components/Modal.vue"
 
 import ungu from "../assets/bg_ungu.png";
 import orange from "../assets/bg_orange.png";
@@ -242,9 +251,11 @@ export default {
         Tabs,
         Tab,
         apexchart: VueApexCharts,
+        modal
     },
     data: function() {
         return {
+            isModalVisible: false,
             couponCode: 'RILIVSURABAYAMU',
             isLoading: true,
             background: {
@@ -328,6 +339,9 @@ export default {
       },
       toggleLoading: function() {
         this.isLoading = !this.isLoading;
+      },
+      toggleModal: function() {
+        this.isModalVisible = !this.isModalVisible;
       },
       doCopy() {
         this.$copyText(this.couponCode).then(function () {
