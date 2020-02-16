@@ -30,9 +30,10 @@
           </div>
         </div>
       </div>
-      <div class="w-4/12 md:w-3/12 xl:w-2/12 mx-auto pt-16">
+      <p v-show="authFail" class="w-9/12 mx-auto bg-red-200 rounded text-center text-red-600 font-semibold p-4 my-8">{{ this.error }}</p>
+      <div class="w-4/12 md:w-3/12 xl:w-2/12 mx-auto" :class="{ 'mt-16' : !authFail }">
         <div class="shadow-lg rounded">
-          <v-button v-google-signin-button="clientId" class="py-3 lg:py-4" msg="Lanjutkan"/>
+          <v-button v-google-signin-button="clientId" class="py-3 lg:py-4" :class="loadingClasses" msg="Lanjutkan"/>
         </div>
       </div>
     </div>
@@ -42,6 +43,7 @@
 <script>
 import Button from '@/components/Button.vue'
 import GoogleSignInButton from 'vue-google-signin-button-directive'
+import axios from "axios";
 
 export default {
   components: {
@@ -52,23 +54,122 @@ export default {
   },
   data () {
     return {
-      clientId: '108212715202-l8s1s6drj109f9q8lqkp61su74q7fk6j.apps.googleusercontent.com',
       user_id: '',
+      authFail: false,
+      isLoading: false,
+      isValidated: false,
+      error: '',
+      response: '',
+      output: '',
+      userStatus: '',
+      clientId: '108212715202-l8s1s6drj109f9q8lqkp61su74q7fk6j.apps.googleusercontent.com',
+      loginAPI: process.env.NODE_ENV === 'production' ? 'https://api.tkm.riliv.co.id/api/v0/tkm/auth/login' : 'http://api.tkm.riliv.co.id/api/v0/tkm/auth/login',
+      checkUserAPI: process.env.NODE_ENV === 'production' ? 'https://api.tkm.riliv.co.id/api/v0/tkm/user/register/check' : 'http://api.tkm.riliv.co.id/api/v0/tkm/user/register/check/'
     }
   },
   methods: {
-    /* eslint-disable no-console */
-    OnGoogleAuthSuccess (idToken) {
-      console.log(idToken)
-      this.$router.push({ name: 'registration', params: { idToken } })
-
+    toggleLoading: function() {
+      this.isLoading = !this.isLoading;
     },
+
+    /* eslint-disable no-console */
+    async OnGoogleAuthSuccess (idToken) {
+      this.isLoading = true
+
+      const params = {
+        id_token: idToken
+      }
+
+      await axios
+      .get("https://oauth2.googleapis.com/tokeninfo", { params })
+      .then(response => (
+        this.response = response.data
+      ))
+      
+      await axios
+      .post(this.loginAPI, {
+          name: this.response.given_name,
+          avatar: this.response.picture,
+          email: this.response.email,
+      })
+      .then( response => (
+          console.log(response),
+          this.output = response.data,
+          this.user_id = response.data.user_id,
+          this.isValidated = true
+      ))
+      .catch( error => (
+          console.log(error),
+          this.output = error.response,
+          this.isValidated = false
+      ));
+
+      //Validasi user apakah telah melewati batas 10 hari
+      if(this.isValidated == false) {
+        //Matiin Spinner
+        this.toggleLoading()
+
+        //Tampilin Error
+        this.authFail = true
+
+        return this.error = "Anda dapat melakukan Tes Kesehatan Mental lagi setelah 10 hari terhitung dari anda melakukan tes kesehatan mental sebelumnya"
+        
+      } else {
+
+        //Mau ke route /test atau /registration tetep butuh token
+        // let parsed = JSON.stringify(this.output.token);
+        localStorage.setItem('token', this.output.token);
+        localStorage.setItem('identifier', this.user_id);
+        console.log(this.output.token);
+
+        //Check user apakah sudah register sebelumnya
+        this.checkUser()
+      }
+    },
+
     OnGoogleAuthFail (error) {
       console.log(error)
+      this.authFail = true
+      this.error = "Login gagal 😞, silahkan coba lagi atau refresh browser anda"
+    },
+
+    async checkUser() {
+      await axios
+      .get(this.checkUserAPI + this.user_id)
+      .then(response => (
+        this.userStatus = response.data.status,
+        console.log(this.userStatus)
+      ))
+
+      //User udah register sebelumnya?
+      if (this.userStatus == "1") {
+
+        //Ke halaman introduction test
+        this.$router.push({ name: 'intro' })
+
+      } else if (this.userStatus == "0") {
+
+        this.$router.push({ name: 'registration' })
+
+      } else {
+
+        //Tampilin Error
+        this.authFail = true
+        return this.error = "Network Error 😢"
+
+      }
     }
-  }
+  },
   /* eslint-enable no-console */
 
+  computed: {
+    loadingClasses: function() {
+        return {
+          'spinner cursor-wait': this.isLoading,
+          '': !this.isLoading
+        }
+      },
+  }
 };
 </script>
 

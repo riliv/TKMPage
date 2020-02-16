@@ -8,6 +8,7 @@ import { ValidationObserver, ValidationProvider, extend, localize} from 'vee-val
 import en from 'vee-validate/dist/locale/en.json';
 import * as rules from 'vee-validate/dist/rules';
 import VueClipboard from 'vue-clipboard2'
+import VueSessionStorage from 'vue-sessionstorage'
 
 
 // install rules and localization
@@ -22,6 +23,7 @@ Vue.component('ValidationObserver', ValidationObserver);
 Vue.component('ValidationProvider', ValidationProvider);
 
 Vue.use(VueClipboard)
+Vue.use(VueSessionStorage)
 
 Vue.config.productionTip = false
 

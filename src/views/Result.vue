@@ -245,7 +245,6 @@ import orange from "../assets/bg_orange.png";
 import biru from "../assets/bg_biru.png";
 
 export default {
-    props: ['userId'],
     components: {
         "v-button": Button,
         Tabs,
@@ -258,6 +257,11 @@ export default {
             isModalVisible: false,
             couponCode: 'RILIVSURABAYAMU',
             isLoading: true,
+            response: '',
+            user_id: '',
+            isValid: false,
+            checkTokenAPI: process.env.NODE_ENV === 'production' ? 'https://api.tkm.riliv.co.id/api/v0/tkm/auth/checkToken' : 'http://api.tkm.riliv.co.id/api/v0/tkm/auth/checkToken',
+            getResultAPI: process.env.NODE_ENV === 'production' ? 'https://api.tkm.riliv.co.id/api/v0/tkm/result/' : 'http://api.tkm.riliv.co.id/api/v0/tkm/result/',
             background: {
               ungu,
               orange,
@@ -276,52 +280,37 @@ export default {
             }
         };
     },
-    mounted() {
-      axios
-      .get("http://api.tkm.riliv.co.id/api/v0/tkm/result/"+this.userId)
-      .then( response => (
-        this.output = response.data,
-        this.level = [
-          this.output.depression_level,
-          this.output.anxiety_level,
-          this.output.stress_level
-        ],
-        this.series = [{
-          data: [
-            this.output.depression_score,
-            this.output.anxiety_score,
-            this.output.stress_score
-          ]
-        }],
-        this.chartOptions = {
-          chart: {
-            id: 'vuechart-example'
-          },
-          xaxis: {
-            categories: ['Depresi', 'Kecemasan', 'Stres']
-          },
-          yaxis: {
-            max: 42,
-            tickAmount: 4,
-          },
-          tooltip: {
-            enabled: false
-          },
-          plotOptions: {
-            bar: {
-              distributed: true
-            },
-          },
-          colors: [
-            this.getColor(this.output.depression_level), 
-            this.getColor(this.output.anxiety_level),
-            this.getColor(this.output.stress_level)
-          ]
-        }
-      ))
+    async mounted() {
+
+      this.user_id = localStorage.getItem('identifier')
+
+      //Validasi token
+      await axios
+      .post(this.checkTokenAPI, {
+        token: localStorage.getItem("token")
+      })
+      .then(
+        response => (
+          this.isValid = true,
+          this.response = response.data
+        )
+      )
       .catch( error => (
-        this.output = error.response
-      ))
+        this.response = error.response
+      ));
+
+      //Cek kredensialnya valid atau engga
+      if (this.isValid == true) {
+
+        //Get data untuk ditampilkan di grafik        
+        await this.getData()
+
+      } else {
+
+        //kalo kredensial ditolak, kirim ke view 403
+        this.$router.push({ name: '403' })
+
+      }
     },
     methods: {
       getColor(level) {
@@ -349,6 +338,61 @@ export default {
         }, function () {
           alert('Failed')
         })
+      },
+      async getData() {
+
+        //Tiap API yang pake middleware auth harus nyertain token di header
+        const config = {
+          headers: {
+              Authorization: "Bearer " + localStorage.getItem('token')
+          }
+        }
+
+        await axios
+        .get(this.getResultAPI+this.user_id, config)
+        .then( response => (
+          this.output = response.data,
+          this.level = [
+            this.output.depression_level,
+            this.output.anxiety_level,
+            this.output.stress_level
+          ],
+          this.series = [{
+            data: [
+              this.output.depression_score,
+              this.output.anxiety_score,
+              this.output.stress_score
+            ]
+          }],
+          this.chartOptions = {
+            chart: {
+              id: 'vuechart-example'
+            },
+            xaxis: {
+              categories: ['Depresi', 'Kecemasan', 'Stres']
+            },
+            yaxis: {
+              max: 42,
+              tickAmount: 4,
+            },
+            tooltip: {
+              enabled: false
+            },
+            plotOptions: {
+              bar: {
+                distributed: true
+              },
+            },
+            colors: [
+              this.getColor(this.output.depression_level), 
+              this.getColor(this.output.anxiety_level),
+              this.getColor(this.output.stress_level)
+            ]
+          }
+        ))
+        .catch( error => (
+          this.output = error.response
+        ))
       }
     }
 };

@@ -151,14 +151,17 @@ import 'vue-form-wizard/dist/vue-form-wizard.min.css'
 import axios from "axios"
 
 export default {
-  props: ['userId'],
   data: function() {
     return {
       isOpen: true,
       isLoading: false,
+      isValid: false,
+      user_id: '',
       soal: [],
       output: [],
       errors: '',
+      checkTokenAPI: process.env.NODE_ENV === 'production' ? 'https://api.tkm.riliv.co.id/api/v0/tkm/auth/checkToken' : 'http://api.tkm.riliv.co.id/api/v0/tkm/auth/checkToken',
+      submitAnswerAPI: process.env.NODE_ENV === 'production' ? 'https://api.tkm.riliv.co.id/api/v0/tkm/answers' : 'http://api.tkm.riliv.co.id/api/v0/tkm/answers'
     }
   },
   components: {
@@ -167,6 +170,31 @@ export default {
     FormWizard,
     TabContent
   },
+  /* eslint-disable no-console */
+  async mounted() {
+    //Validasi token
+    await axios
+    .post(this.checkTokenAPI, {
+      token: localStorage.getItem("token")
+    })
+    .then(
+      response => (
+        console.log(response.data),
+        this.isValid = true
+      )
+    )
+    .catch( error => (
+      console.log(error.response)
+    ));
+
+    //Cek kredensialnya valid atau engga
+    if (this.isValid == true) {
+      return this.user_id = localStorage.getItem('identifier')
+    } else {
+      this.$router.push({ name: '403' })
+    }
+  },
+  /* eslint-enable no-console */
   methods: {
     setFocus: function()
     {
@@ -196,20 +224,25 @@ export default {
         });
       }
 
-      const userId = this.userId
-
       this.toggleLoading()
 
+      //Tiap API yang pake middleware auth harus nyertain token di header
+      const config = {
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem('token')
+        }
+      }
+
       await axios
-        .post('http://api.tkm.riliv.co.id/api/v0/tkm/answers', {
-            user_id: this.userId,
+        .post(this.submitAnswerAPI, {
+            user_id: this.user_id,
             soal: this.soal,
-        })
+        }, config)
         .then( response => (
             console.log(response.data),
             this.output = response.data,
-            this.userId = response.data.user_id,
-            this.$router.push({ name: 'result', params: { userId } })
+            this.user_id = response.data.user_id,
+            this.$router.push({ name: 'result' })
         ))
         .catch( error => (
             console.log(error.response),

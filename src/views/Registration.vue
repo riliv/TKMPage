@@ -183,14 +183,16 @@ Vue.use(VCalendar, {
 
 export default {
   name: "test",
-  props: ['idToken'],
   components: {
     "v-button": Button
   },
   data: function() {
     return {
       date: '',
+      isValid: false,
       baseUrl: 'https://x.rajaapi.com/MeP7c5ne',
+      checkTokenAPI: process.env.NODE_ENV === 'production' ? 'https://api.tkm.riliv.co.id/api/v0/tkm/auth/checkToken' : 'http://api.tkm.riliv.co.id/api/v0/tkm/auth/checkToken',
+      registrationAPI: process.env.NODE_ENV === 'production' ? 'https://api.tkm.riliv.co.id/api/v0/tkm/user/register' : 'http://api.tkm.riliv.co.id/api/v0/tkm/user/register',
       person : {
         name: '',
         gender: '',
@@ -214,57 +216,60 @@ export default {
   /* eslint-disable no-console */
   async mounted() {
 
+    //Validasi token
     await axios
-    .get("https://x.rajaapi.com/poe")
-    .then(
-      response => (
-        this.key = response.data.token
-      )
-    )
-
-    const suffixUrl = "/m/wilayah/provinsi"
-    const url = this.baseUrl+this.key+suffixUrl
-
-    await axios
-      .get(url)
-      .then(
-        response => (
-          console.log(response.data), 
-          this.provinces = response.data
-        )
-      )
-      .catch(error => console.error(error));
-    
-    const params = {
-        id_token: this.idToken
-    }
-
-    await axios
-    .get("https://oauth2.googleapis.com/tokeninfo", { params })
-    .then(
-      response => (
-        this.clientData = response.data,
-        this.person.name = this.clientData.name
-      )
-    )
-
-    await axios
-    .post('http://api.tkm.riliv.co.id/api/v0/tkm/auth/login', {
-        name: this.clientData.given_name,
-        avatar: this.clientData.picture,
-        email: this.clientData.email,
+    .post(this.checkTokenAPI, {
+      token: localStorage.getItem("token")
     })
-    .then( response => (
+    .then(
+      response => (
         console.log(response.data),
-        this.output = response.data,
-        this.userId = response.data.user_id
-    ))
+        this.isValid = true
+      )
+    )
     .catch( error => (
-        console.log(error),
-        this.output = error
+      console.log(error.response)
     ));
+
+    //Cek kredensialnya valid atau engga
+    if (this.isValid == true) {
+      //Assign user_id
+      this.user_id = localStorage.getItem('identifier')
+      //Get key untuk API
+      await this.getKey()
+      //Get Provinsi
+      await this.initState()
+    } else {
+      this.$router.push({ name: '403' })
+    }
+    
   },
   methods: {
+    async getKey() {
+      await axios
+      .get("https://x.rajaapi.com/poe")
+      .then(
+        response => (
+          this.key = response.data.token
+        )
+      )
+    },
+
+    async initState() {
+      const suffixUrl = "/m/wilayah/provinsi"
+      const url = this.baseUrl+this.key+suffixUrl
+
+      await axios
+        .get(url)
+        .then(
+          response => (
+            console.log(response.data), 
+            this.provinces = response.data
+          )
+        )
+        .catch(error => console.error(error));
+    },
+
     province() {
       this.state.regency = "";
       this.state.district = "";
@@ -285,6 +290,7 @@ export default {
         })
         .catch(error => console.error(error));
     },
+
     regency() {
       this.state.district = "";
 
@@ -302,16 +308,14 @@ export default {
         })
         .catch(error => console.error(error));
     },
+
     submit: function(){
 
-      const userId = this.output.user_id
       const date = document.querySelector("input[id=date]").value
 
-      console.log(date)
-
       axios
-        .post('http://api.tkm.riliv.co.id/api/v0/tkm/user/register', {
-            user_id: this.output.user_id,
+        .post(this.registrationAPI, {
+            user_id: localStorage.getItem('identifier'),
             provinsi: this.state.province,
             kabupaten: this.state.regency,
             kecamatan: this.state.district,
@@ -325,18 +329,19 @@ export default {
         .then( response => (
             console.log(response.data),
             this.output = response.data,
-            this.userId = response.data.user_id,
-            this.$router.push({ name: 'test', params: { userId } })
-
+            this.user_id = response.data.user_id,
+            this.$router.push({ name: 'test' })
         ))
         .catch( error => (
             console.log(error.response),
             this.output = error.response
         ));
-      },
+    },
+
     inputStyle: function (targetInput) { // bind with one method and return Array
       return [targetInput == '' ? 'text-gray-500' : 'text-gray-800']
     }
+
   },
   /* eslint-enable no-console */
 };
