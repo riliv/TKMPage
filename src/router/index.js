@@ -6,6 +6,8 @@ import Intro from '../views/Intro.vue'
 import Subscribe from '../views/Subscribe.vue'
 import Result from '../views/Result.vue'
 import Registration from '../views/Registration.vue'
+import Error404 from '../views/error/404.vue'
+import Error403 from '../views/error/403.vue'
 
 Vue.use(VueRouter)
 
@@ -16,15 +18,13 @@ const routes = [
     component: Home
   },
   {
-    path: '/registration/:idToken',
+    path: '/registration',
     name: 'registration',
-    props: true,
     component: Registration
   },
   {
-    path: '/test/:userId',
+    path: '/test',
     name: 'test',
-    props: true,
     component: Test
   },
   {
@@ -38,10 +38,19 @@ const routes = [
     component: Subscribe
   },
   {
-    path: '/result/:userId',
+    path: '/result',
     name: 'result',
-    props: true,
     component: Result
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: Error404
+  },
+  {
+    path: '/403',
+    name: '403',
+    component: Error403
   }
 ]
 
