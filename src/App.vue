@@ -1,5 +1,7 @@
 <template>
   <div id="app">
-    <router-view/>
+    <vue-page-transition name="fade-in-right">
+      <router-view />
+    </vue-page-transition>
   </div>
 </template>
