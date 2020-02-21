@@ -260,8 +260,8 @@ export default {
             response: '',
             user_id: '',
             isValid: false,
-            checkTokenAPI: process.env.NODE_ENV === 'production' ? 'https://api.tkm.riliv.co.id/api/v0/tkm/auth/checkToken' : 'http://api.tkm.riliv.co.id/api/v0/tkm/auth/checkToken',
-            getResultAPI: process.env.NODE_ENV === 'production' ? 'https://api.tkm.riliv.co.id/api/v0/tkm/result/' : 'http://api.tkm.riliv.co.id/api/v0/tkm/result/',
+            checkTokenAPI: process.env.VUE_APP_CHECK_TOKEN_API,
+            getResultAPI: process.env.VUE_APP_GET_RESULT_API,
             background: {
               ungu,
               orange,

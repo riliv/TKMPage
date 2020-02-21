@@ -24,24 +24,29 @@
             <p class="text-gray-600 font-semibold text-sm">Nama</p>
             <input
               v-model.lazy="person.name"
-              class="form-input mt-2 block w-full text-sm"
-              :class="[ person.name == '' ? 'border border-red-600' : '' ]"
+              class="form-input mt-2 block w-full text-sm focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
+              placeholder="Alejandro"
               value=""
             />
           </div>
           <div class="block mt-4">
-            <p class="text-gray-600 font-semibold text-sm">Nomor Induk Kependudukan</p>
+            <p class="text-gray-600 font-semibold text-sm">
+              Nomor Induk Kependudukan
+            </p>
             <input
-              v-model.lazy="person.nik" 
-              class="form-input mt-2 block w-full text-sm"
-              placeholder="Ex: 3272082006980001"
+              v-model.lazy="person.nik"
+              class="form-input mt-2 block w-full text-sm focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
+              placeholder="327208200698XXXX"
               value=""
             />
           </div>
           <div class="block mt-4">
             <p class="text-gray-600 font-semibold text-sm">Jenis Kelamin</p>
             <div class="mt-2">
-              <label class="inline-flex items-center"  :class="[ person.gender != 'male' ? 'text-gray-500' : '' ]">
+              <label
+                class="inline-flex items-center"
+                :class="[person.gender != 'male' ? 'text-gray-500' : '']"
+              >
                 <input
                   id="pria"
                   type="radio"
@@ -52,7 +57,10 @@
                 />
                 <label class="ml-2 text-sm" for="pria">Pria</label>
               </label>
-              <label class="inline-flex items-center ml-6" :class="[ person.gender != 'female' ? 'text-gray-500' : '' ]">
+              <label
+                class="inline-flex items-center ml-6"
+                :class="[person.gender != 'female' ? 'text-gray-500' : '']"
+              >
                 <input
                   id="wanita"
                   type="radio"
@@ -61,7 +69,7 @@
                   value="female"
                   v-model="person.gender"
                 />
-                <label for="wanita" class="ml-2 text-sm">Wanita</label >
+                <label for="wanita" class="ml-2 text-sm">Wanita</label>
               </label>
             </div>
           </div>
@@ -69,8 +77,8 @@
             <p class="text-gray-600 font-semibold text-sm">Nomor Telepon</p>
             <input
               v-model.lazy="person.phone"
-              class="form-input mt-2 block w-full text-sm"
-              placeholder="Ex: 081216550299"
+              class="form-input mt-2 block w-full text-sm focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
+              placeholder="08121655XXX"
               value=""
             />
           </div>
@@ -86,6 +94,7 @@
                   id="date"
                   name="datepicker"
                   type="date"
+                  class="focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
                   placeholder="Ex: 29/04/1999"
                   slot-scope="{ inputProps, inputEvents }"
                   :class="[
@@ -100,7 +109,7 @@
           <div class="block mt-4">
             <p class="text-gray-600 font-semibold text-sm">Provinsi</p>
             <select
-              class="form-select mt-1 block w-full text-sm capitalize"
+              class="form-select mt-1 block w-full text-sm capitalize focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
               :class="inputStyle(state.province)"
               @change="province"
               v-model="state.province"
@@ -115,10 +124,13 @@
               >
             </select>
           </div>
-          <div class="block mt-4"  :class="[ state.province != '' ? '' : 'hidden' ]">
+          <div
+            class="block mt-4"
+            :class="[state.province != '' ? '' : 'hidden']"
+          >
             <p class="text-gray-600 font-semibold text-sm">Kota/Kabupaten</p>
             <select
-              class="form-select mt-1 block w-full text-sm capitalize"
+              class="form-select mt-1 block w-full text-sm capitalize focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
               :class="inputStyle(state.regency)"
               @change="regency"
               v-model="state.regency"
@@ -132,10 +144,13 @@
               >
             </select>
           </div>
-          <div class="block mt-4"   :class="[ state.regency != '' ? '' : 'hidden' ]">
+          <div
+            class="block mt-4"
+            :class="[state.regency != '' ? '' : 'hidden']"
+          >
             <p class="text-gray-600 font-semibold text-sm">Kecamatan</p>
             <select
-              class="form-select mt-1 block w-full text-sm text-gray-500 capitalize"
+              class="form-select mt-1 block w-full text-sm text-gray-500 capitalize focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
               :class="inputStyle(state.district)"
               v-model="state.district"
             >
@@ -152,12 +167,17 @@
             <p class="text-gray-600 font-semibold text-sm">Alamat</p>
             <input
               v-model="state.address"
-              class="form-input mt-2 block w-full text-sm"
+              class="form-input mt-2 block w-full text-sm focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
               placeholder="Masukkan alamat anda"
             />
           </div>
           <div class="block mt-8">
-            <v-button type="submit" msg="Dapatkan Bantuan" class="py-3" />
+            <v-button
+              type="submit"
+              msg="Selanjutnya"
+              class="py-3"
+              :class="loadingClasses"
+            />
           </div>
         </div>
       </form>
@@ -172,9 +192,9 @@ import Button from "@/components/Button.vue";
 
 Vue.use(VCalendar, {
   locales: {
-    'id-ID': {
+    "id-ID": {
       masks: {
-        L: 'YYYY-MM-DD',
+        L: "YYYY-MM-DD"
         // ...optional `title`, `weekdays`, `navMonths`, etc
       }
     }
@@ -188,83 +208,69 @@ export default {
   },
   data: function() {
     return {
-      date: '',
+      date: "",
       isValid: false,
-      baseUrl: 'https://x.rajaapi.com/MeP7c5ne',
-      checkTokenAPI: process.env.NODE_ENV === 'production' ? 'https://api.tkm.riliv.co.id/api/v0/tkm/auth/checkToken' : 'http://api.tkm.riliv.co.id/api/v0/tkm/auth/checkToken',
-      registrationAPI: process.env.NODE_ENV === 'production' ? 'https://api.tkm.riliv.co.id/api/v0/tkm/user/register' : 'http://api.tkm.riliv.co.id/api/v0/tkm/user/register',
-      person : {
-        name: '',
-        gender: '',
-        nik: '',
-        phone: '',
+      baseUrl: "https://x.rajaapi.com/MeP7c5ne",
+      checkTokenAPI: process.env.VUE_APP_CHECK_TOKEN_API,
+      registrationAPI: process.env.VUE_APP_REGISTRATION_API,
+      person: {
+        name: "",
+        gender: "",
+        nik: "",
+        phone: ""
       },
-      key: '',
+      key: "",
       state: {
         province: "",
         regency: "",
         district: "",
-        address: "",
+        address: ""
       },
       provinces: [],
       regencies: [],
       districts: [],
       output: [],
-      clientData: [],
+      clientData: []
     };
   },
   /* eslint-disable no-console */
   async mounted() {
-
     //Validasi token
     await axios
-    .post(this.checkTokenAPI, {
-      token: localStorage.getItem("token")
-    })
-    .then(
-      response => (
-        console.log(response.data),
-        this.isValid = true
-      )
-    )
-    .catch( error => (
-      console.log(error.response)
-    ));
+      .post(this.checkTokenAPI, {
+        token: localStorage.getItem("token")
+      })
+      .then(response => (console.log(response.data), (this.isValid = true)))
+      .catch(error => console.log(error.response));
 
     //Cek kredensialnya valid atau engga
     if (this.isValid == true) {
       //Assign user_id
-      this.user_id = localStorage.getItem('identifier')
+      this.user_id = localStorage.getItem("identifier");
       //Get key untuk API
-      await this.getKey()
+      await this.getKey();
       //Get Provinsi
-      await this.initState()
+      await this.initState();
     } else {
-      this.$router.push({ name: '403' })
+      this.$router.push({ name: "403" });
     }
-    
   },
   methods: {
     async getKey() {
       await axios
-      .get("https://x.rajaapi.com/poe")
-      .then(
-        response => (
-          this.key = response.data.token
-        )
-      )
+        .get("https://x.rajaapi.com/poe")
+        .then(response => (this.key = response.data.token));
     },
 
     async initState() {
-      const suffixUrl = "/m/wilayah/provinsi"
-      const url = this.baseUrl+this.key+suffixUrl
+      const suffixUrl = "/m/wilayah/provinsi";
+      const url = this.baseUrl + this.key + suffixUrl;
 
       await axios
         .get(url)
         .then(
           response => (
-            console.log(response.data), 
-            this.provinces = response.data
+            console.log(response.data), (this.provinces = response.data)
           )
         )
         .catch(error => console.error(error));
@@ -275,8 +281,8 @@ export default {
       this.state.district = "";
 
       // set params
-      const suffixUrl = "/m/wilayah/kabupaten"
-      const url = this.baseUrl+this.key+suffixUrl
+      const suffixUrl = "/m/wilayah/kabupaten";
+      const url = this.baseUrl + this.key + suffixUrl;
       const params = {
         //nyesuain API Call dari rajaapi.com
         idpropinsi: this.state.province
@@ -294,8 +300,8 @@ export default {
     regency() {
       this.state.district = "";
 
-      const suffixUrl = "/m/wilayah/kecamatan"
-      const url = this.baseUrl+this.key+suffixUrl
+      const suffixUrl = "/m/wilayah/kecamatan";
+      const url = this.baseUrl + this.key + suffixUrl;
       // set params
       const params = {
         idkabupaten: this.state.regency
@@ -309,40 +315,49 @@ export default {
         .catch(error => console.error(error));
     },
 
-    submit: function(){
-
-      const date = document.querySelector("input[id=date]").value
+    submit: function() {
+      const date = document.querySelector("input[id=date]").value;
 
       axios
         .post(this.registrationAPI, {
-            user_id: localStorage.getItem('identifier'),
-            provinsi: this.state.province,
-            kabupaten: this.state.regency,
-            kecamatan: this.state.district,
-            alamat : this.state.address,
-            name : this.person.name,
-            nik : this.person.nik,
-            phone : this.person.phone,
-            gender : this.person.gender,
-            birthdate : date
+          user_id: localStorage.getItem("identifier"),
+          provinsi: this.state.province,
+          kabupaten: this.state.regency,
+          kecamatan: this.state.district,
+          alamat: this.state.address,
+          name: this.person.name,
+          nik: this.person.nik,
+          phone: this.person.phone,
+          gender: this.person.gender,
+          birthdate: date
         })
-        .then( response => (
+        .then(
+          response => (
             console.log(response.data),
-            this.output = response.data,
-            this.user_id = response.data.user_id,
-            this.$router.push({ name: 'test' })
-        ))
-        .catch( error => (
-            console.log(error.response),
-            this.output = error.response
-        ));
+            (this.output = response.data),
+            (this.user_id = response.data.user_id),
+            this.$router.push({ name: "test" })
+          )
+        )
+        .catch(error => (this.output = error.response));
     },
 
-    inputStyle: function (targetInput) { // bind with one method and return Array
-      return [targetInput == '' ? 'text-gray-500' : 'text-gray-800']
+    inputStyle: function(targetInput) {
+      // bind with one method and return Array
+      return [targetInput == "" ? "text-gray-500" : "text-gray-800"];
+    },
+    toggleLoading: function() {
+      this.isLoading = !this.isLoading;
     }
-
   },
+  computed: {
+    loadingClasses: function() {
+      return {
+        "spinner cursor-wait": this.isLoading,
+        "": !this.isLoading
+      };
+    }
+  }
   /* eslint-enable no-console */
 };
 </script>
