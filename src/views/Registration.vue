@@ -336,7 +336,7 @@ export default {
             console.log(response.data),
             (this.output = response.data),
             (this.user_id = response.data.user_id),
-            this.$router.push({ name: "test" })
+            this.$router.push({ name: "intro" })
           )
         )
         .catch(error => (this.output = error.response));
