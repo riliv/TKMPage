@@ -23,8 +23,34 @@
             ></apexchart>
           </div>
           <div class="mx-auto border rounded bg-gray-100">
-            <div class="my-4 text-sm mx-auto">
+            <div class="my-4 text-sm mx-auto" :class="accordionClasses">
+              <div class="flex flex-row items-center cursor-pointer" @click="toggleAccordion">
                 <p class="ml-4 text-base text-gray-800 font-semibold my-2">Keterangan Grafik</p>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  class="w-8 h-8 mr-2 ml-auto icon-cheveron-down"
+                  v-if="!isOpen"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M15.3 10.3a1 1 0 0 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 1.4-1.4l3.3 3.29 3.3-3.3z"
+                  ></path>
+                </svg>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  class="w-8 h-8 mr-2 ml-auto icon-cheveron-up"
+                  v-if="isOpen"
+                >
+                  <path
+                    class="secondary"
+                    fill-rule="evenodd"
+                    d="M8.7 13.7a1 1 0 1 1-1.4-1.4l4-4a1 1 0 0 1 1.4 0l4 4a1 1 0 0 1-1.4 1.4L12 10.42l-3.3 3.3z"
+                  ></path>
+                </svg>
+              </div>
+              <div class="message-body overflow-hidden">
                 <div class="w-10/12 mx-auto mt-6 my-4">
                     <ul class="text-gray-800 text-xs">
                         <li class="inline-block mb-3 w-6/12">
@@ -77,40 +103,40 @@
                     </tr>
                     <tr class="bg-gray-200">
                       <td class="rounded-l px-2 py-2">Ringan</td>
-                      <td class="px-2 py-2">0-9</td>
-                      <td class="px-2 py-2">0-7</td>
-                      <td class="rounded-r px-2 py-2">0-14</td>
+                      <td class="px-2 py-2">10-13</td>
+                      <td class="px-2 py-2">8-9</td>
+                      <td class="rounded-r px-2 py-2">15-18</td>
                     </tr>
                     <tr>
                       <td class="px-2 py-2">Sedang</td>
-                      <td class="px-2 py-2">0-9</td>
-                      <td class="px-2 py-2">0-7</td>
-                      <td class="px-2 py-2">0-14</td>
+                      <td class="px-2 py-2">14-20</td>
+                      <td class="px-2 py-2">10-14</td>
+                      <td class="px-2 py-2">19-25</td>
                     </tr>
                     <tr class="bg-gray-200">
                       <td class="rounded-l px-2 py-2">Parah</td>
-                      <td class="px-2 py-2">0-9</td>
-                      <td class="px-2 py-2">0-7</td>
-                      <td class="rounded-r px-2 py-2">0-14</td>
+                      <td class="px-2 py-2">21-27</td>
+                      <td class="px-2 py-2">15-19</td>
+                      <td class="rounded-r px-2 py-2">26-33</td>
                     </tr>
                     <tr>
                       <td class="px-2 py-2">Sangat Parah</td>
-                      <td class="px-2 py-2">0-9</td>
-                      <td class="px-2 py-2">0-7</td>
-                      <td class="px-2 py-2">0-14</td>
+                      <td class="px-2 py-2">28+</td>
+                      <td class="px-2 py-2">20+</td>
+                      <td class="px-2 py-2">34+</td>
                     </tr>
                   </tbody>
                 </table>
+              </div>
             </div>
           </div>
         </div>
         <div class="w-full md:w-8/12 mx-auto md:ml-0">
           <tabs>
-            <p class="my-1">Terima kasih karena kamu telah memilih untuk mencari tahu kondisi kesehatan mentalmu. Mengikuti tes kesehatan mental sama sekali bukanlah hal yang tabu.</p>
-            <p class="my-1">Berdasarkan jawaban yang kamu berikan, jika skormu berada di bawah 10, maka kamu bisa terus merawat dan lebih perhatian kepada hal-hal yang mungkin membuatmu tidak nyaman secara berkala.</p>
-            <p class="mt-4">Jika skormu adalah 10 atau di atasnya, maka kamu mungkin merasakan satu atau beberapa kondisi di bawah ini:</p>
-
-            <tab name="Depression" :selected="true">
+            <tab name="Depresi" :selected="true">
+              <p class="my-1">Terima kasih karena kamu telah memilih untuk mencari tahu kondisi kesehatan mentalmu. Mengikuti tes kesehatan mental sama sekali bukanlah hal yang tabu.</p>
+              <p class="my-1">Berdasarkan jawaban yang kamu berikan, jika skormu kurang dari 10, maka kamu bisa terus merawat dan lebih perhatian kepada hal-hal yang mungkin membuatmu tidak nyaman secara berkala.</p>
+              <p class="mt-4">Jika skormu adalah 10 atau lebih, maka kamu mungkin merasakan satu atau beberapa kondisi di bawah ini:</p>
               <ul class="w-10/12 list-disc list-outside ml-6 my-4 text-gray-800 text-md">
                   <li class="my-2">Merendahkan diri sendiri</li>
                   <li class="my-2">Kehilangan semangat atas hal-hal yang disukai</li>
@@ -123,7 +149,10 @@
                   <li class="my-2">Kurangnya inisiatif bertindak</li>
               </ul>
             </tab>
-            <tab name="Anxiety">
+            <tab name="Kecemasan">
+              <p class="my-1">Terima kasih karena kamu telah memilih untuk mencari tahu kondisi kesehatan mentalmu. Mengikuti tes kesehatan mental sama sekali bukanlah hal yang tabu.</p>
+              <p class="my-1">Berdasarkan jawaban yang kamu berikan, jika skormu kurang dari 8, maka kamu bisa terus merawat dan lebih perhatian kepada hal-hal yang mungkin membuatmu tidak nyaman secara berkala.</p>
+              <p class="mt-4">Jika skormu adalah 8 atau lebih, maka kamu mungkin merasakan satu atau beberapa kondisi di bawah ini:</p>
               <ul class="w-10/12 list-disc list-outside ml-6 my-4 text-gray-800 text-md">
                   <li class="my-2">Mudah cemas dan yakin akan mengalami hal buruk</li>
                   <li class="my-2">Mudah gugup</li>
@@ -136,7 +165,10 @@
                   <li class="my-2">Ketakutan akan kehilangan kontrol tubuh</li>
               </ul>
             </tab>
-            <tab name="Stress">
+            <tab name="Stres">
+              <p class="my-1">Terima kasih karena kamu telah memilih untuk mencari tahu kondisi kesehatan mentalmu. Mengikuti tes kesehatan mental sama sekali bukanlah hal yang tabu.</p>
+              <p class="my-1">Berdasarkan jawaban yang kamu berikan, jika skormu kurang dari 15, maka kamu bisa terus merawat dan lebih perhatian kepada hal-hal yang mungkin membuatmu tidak nyaman secara berkala.</p>
+              <p class="mt-4">Jika skormu adalah 15 atau lebih, maka kamu mungkin merasakan satu atau beberapa kondisi di bawah ini:</p>
               <ul class="w-10/12 list-disc list-outside ml-6 my-4 text-gray-800 text-md">
                 <li class="my-2">Tidak dapat tenang</li>
                 <li class="my-2">Tegang setiap saat</li>
@@ -213,7 +245,7 @@
           <p class="text-xl md:text-3xl font-bold">Kode Voucher</p>
           <div class="flex flex-row">
             <div class="flex w-full lg:w-1/2 xl:w-5/12 my-3 rounded border-2">
-              <p class="mx-auto py-2 px-2 font-semibold text-normal sm:text-lg">RILIVSURABAYAMU</p>
+              <p class="mx-auto py-2 px-2 font-semibold text-normal sm:text-lg">RILIVSEHATMENTAL</p>
             </div>
             <svg @click="doCopy" class="w-10 h-10 my-auto ml-4 cursor-pointer" xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
               <g class="fill-current" transform="translate(512.000000,512.000000) scale(0.100000,-0.100000) rotate(90)" fill="#000000" stroke="none">
@@ -222,7 +254,7 @@
               </g>
             </svg>
           </div>
-          <p class="md:text-lg mt-1 leading-relaxed text-indigo-100">Anda bisa memasukkan kode voucher di atas dalam aplikasi RILIV untuk mendapatkan GRATIS satu bulan Meditasi bersama Riliv Hening</p>
+          <p class="md:text-lg mt-1 leading-relaxed text-indigo-100">Anda bisa memasukkan kode voucher di atas dalam Aplikasi RILIV untuk mendapatkan GRATIS tujuh hari Meditasi bersama Riliv Hening</p>
           <div class="w-6/12 md:w-5/12 mt-6">
             <v-button class="py-3" msg="Coba Aplikasi" variant="default"></v-button>
           </div>
@@ -254,6 +286,7 @@ export default {
     },
     data: function() {
         return {
+            isOpen: true,
             isModalVisible: false,
             couponCode: 'RILIVSURABAYAMU',
             isLoading: true,
@@ -326,6 +359,9 @@ export default {
             return '#F58982'
         }
       },
+      toggleAccordion: function() {
+      this.isOpen = !this.isOpen;
+      },
       toggleLoading: function() {
         this.isLoading = !this.isLoading;
       },
@@ -394,6 +430,14 @@ export default {
           this.output = error.response
         ))
       }
+    },
+    computed: {
+      accordionClasses: function() {
+      return {
+        "is-closed": !this.isOpen,
+        "": this.isOpen,
+      };
+    },
     }
 };
 </script>
@@ -407,6 +451,9 @@ export default {
     animation-duration: 3s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
+}
+.is-closed .message-body {
+  max-height: 0;
 }
 
 @keyframes floating {

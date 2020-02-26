@@ -33,18 +33,12 @@ export default {
             },
             {
                 title: 'Metode apa yang digunakan untuk mengetes?',
-                contents:`Rhino skin maybe thick but it can be quite sensitive to sunburns and
-                    insect bites which is why they like wallow so much – when the mud dries
-                    it acts as protection from the sunburns and insects.
-                `
+                contents:`Dalam tes ini, metode yang digunakan adalah DASS21. Dengan metode ini, dapat diketahui gambaran awal kondisi kesehatan mental yang terkait depresi, kecemasan, dan stres.`
                 
             },
             {
                 title: 'Apa manfaatnya tes kesehatan mental ini bagi saya?',
-                contents:`If you’re looking to hunt a unicorn, but don’t know where to begin, try
-                    Lake Superior State University in Sault Ste. Marie, Michigan. Since
-                    1971, the university has issued permits to unicorn questers.
-                `
+                contents:`Tes ini membantu Anda mendapat gambaran kesehatan mental Anda secara umum. Gunakan tes ini sebagai acuan untuk mendapat bantuan psikologis dengan profesional.`
                 
             },
             ]

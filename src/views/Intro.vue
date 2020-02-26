@@ -10,7 +10,7 @@
             Selamat datang di halaman Tes Kesehatan Mental 
         </h1>
         <p class="w-full md:w-10/12 lg:w-full mx-auto pt-3 text-gray-700 text-base text-md sm:text-lg mb-8 text-center lg:text-left slide-in-bottom-subtitle leading-relaxed">
-            Dalam tes ini anda akan dituntun untuk menjawab pertanyaan-pertanyaan pilihan ganda dengan sebuah skala 1-4, adapun aturan dalam pilihan ganda adalah sebagai berikut
+            Anda akan diminta untuk membaca pernyatan yang tertulis di tes ini. Silahkan pilih angka yang paling mewakili kondisi Anda
         </p>
         <div class="hidden lg:flex flex-row">
           <router-link to="/test">
