@@ -9,7 +9,7 @@
     </div>
     <div class="flex flex-col w-full sm:w-10/12 lg:w-8/12 mx-auto">
       <div class="rounded-lg overflow-hidden">
-        <ValidationObserver v-slot="{ handleSubmit }">
+        <ValidationObserver v-slot="{ handleSubmit }" ref="form">
           <form-wizard
             shape="tab"
             class="w-full -mt-16"
@@ -274,6 +274,14 @@
               class="border rounded-lg border-orange-300 px-10 py-3 shadow-md"
               :class="loadingClasses"
             ></v-button>
+            <modal v-show="isModalVisible" @close="toggleModal">
+              <div slot="header" class="mx-auto text-center mt-12">
+                <p class="font-bold text-gray-800">Jawaban tidak lolos validasi</p>
+              </div>
+              <div slot="body" class="w-11/12 text-lg mx-auto mb-10">
+                <p class="text-gray-700">Pola jawaban yang selalu sama tidak dapat digunakan dalam mengidentifikasi masalah Anda dalam Tes Kesehatan Mental ini, silahkan koreksi kembali jawaban anda.</p>
+              </div>
+            </modal>
           </form-wizard>
         </ValidationObserver>
       </div>
@@ -297,6 +305,7 @@ import TableContent from "@/components/base/TableContent.vue";
 import Button from "@/components/Button.vue";
 import { FormWizard, TabContent } from "vue-form-wizard";
 import "vue-form-wizard/dist/vue-form-wizard.min.css";
+import modal from "@/components/Modal.vue";
 import axios from "axios";
 
 export default {
@@ -305,8 +314,10 @@ export default {
       isOpen: true,
       isLoading: false,
       isValid: false,
+      isModalVisible: false,
       user_id: "",
       soal: [],
+      validasi: [],
       output: [],
       errors: "",
       checkTokenAPI: process.env.VUE_APP_CHECK_TOKEN_API,
@@ -317,7 +328,8 @@ export default {
     "t-content": TableContent,
     "v-button": Button,
     FormWizard,
-    TabContent
+    TabContent,
+    modal
   },
   /* eslint-disable no-console */
   async mounted() {
@@ -350,6 +362,9 @@ export default {
     toggleLoading: function() {
       this.isLoading = !this.isLoading;
     },
+    toggleModal: function() {
+      this.isModalVisible = !this.isModalVisible;
+    },
     nextTab() {
       return true;
     },
@@ -367,8 +382,15 @@ export default {
           id: i,
           answer: integerAnswer
         });
+
+        this.validasi.push(integerAnswer);
       }
 
+      if (this.similarity(this.validasi) > 95) {
+        this.toggleModal();
+        return;
+      } 
+        
       this.toggleLoading();
 
       //Tiap API yang pake middleware auth harus nyertain token di header
@@ -400,6 +422,21 @@ export default {
         .catch(
           error => (console.log(error.response), (this.output = error.response))
         );
+    },
+
+    similarity(list) {
+      if (list.length < 1) return 0;
+      if (list.length < 2) return 100;
+      
+      let listPair = [];
+      for (let i = 0; i < list.length - 1; i++)
+        listPair.push({ a: list[i], b: list[i + 1] });
+      
+      const sum = listPair.reduce((acc, { a, b }) => acc + Math.pow(a - b, 2), 0);
+      
+      const calculation = 100 - Math.sqrt(sum);
+      
+      return calculation < 0 ? 0 : calculation;
     }
     /* eslint-enable no-console */
   },
@@ -413,7 +450,7 @@ export default {
     },
     loadingClasses: function() {
       return {
-        "spinner cursor-wait": this.isLoading,
+        "spinner opacity-50 pointer-events-none": this.isLoading,
         "": !this.isLoading
       };
     }
