@@ -206,19 +206,21 @@
         <!-- <img class="relative w-full top-0" src="../assets/bg-illustration.png" alt="Footer illustration"> -->
       </div>
     </div>
-    <div class="flex flex-col items-center mb-24">
-      <div class="flex flex-col md:flex-row w-11/12 md:w-8/12">
-        <img class="object-contain w-6/12 h-full md:w-4/12 mx-auto py-6" src="../assets/illustration-doctor.png">
+    <div class="flex flex-col items-center">
+      <div class="flex flex-col pb-24 md:flex-row w-11/12 md:w-8/12">
+        <div class="overflow-hidden">
+          <img class="min-w-0 object-contain h-auto mb-8 lg:m-0" src="../assets/illustration-doctor.png">
+        </div>
         <div class="flex flex-col text-center md:text-left text-gray-800 my-auto md:ml-16">
           <p class="text-4xl font-semibold">Ikuti tes lagi</p>
           <p class="text-xl leading-relaxed mt-2">Anda dapat melakukan Tes Kesehatan Mental lagi setelah 10 hari terhitung dari anda melakukan tes kesehatan mental sebelumnya</p>
           <div class="w-5/12 md:w-4/12 mx-auto md:mx-0 mt-4">
-            <v-button class="py-3 text-xs" msg="Ikuti tes lagi" @click.native="toggleModal"></v-button>
-            <modal v-show="isModalVisible" @close="toggleModal">
-              <div slot="header" class="mx-auto text-center w-11/12 mt-12">
+            <v-button class="py-3 text-xs" msg="Ikuti tes lagi" @click.native="toggleModal(0)"></v-button>
+            <modal v-show="isModalVisible[0]" @close="toggleModal(0)">
+              <div slot="header" class="mx-auto text-center mt-12">
                 <p class="font-bold text-gray-800">Mohon Maaf, tunggu 7 hari lagi</p>
               </div>
-              <div slot="body" class="w-8/12 text-lg mx-auto mb-10">
+              <div slot="body" class="w-11/12 text-lg mx-auto mb-10">
                 <p class="text-gray-700">Anda belum dapat melakukan Tes Kesehatan Mental lagi. Anda harus menunggu selama 10 hari setelah melakukan tes terakhir.</p>
               </div>
             </modal>
@@ -232,7 +234,75 @@
           <p class="text-xl md:text-4xl font-bold text-white" >Apakah Anda merasa tes ini bermanfaat?</p>
           <p class="md:text-lg mt-1 leading-relaxed text-white">Ajak teman Anda untuk mengetahui lebih dalam tentang kondisi mentalnya!</p>
           <div class="w-6/12 md:w-4/12 mt-6">
-            <v-button class="py-2" msg="Ajak Teman" variant="alternative"></v-button>
+            <v-button class="py-3" msg="Ajak Teman" variant="alternative" @click.native="toggleModal(1)"></v-button>
+            <modal
+              v-show="isModalVisible[1]"
+              @close="toggleModal(1)"
+            >
+              <div
+                slot="header"
+                class="mx-auto text-center mt-12"
+              >
+                <p class="font-bold text-gray-800">
+                  Bagikan alat tes ini
+                </p>
+              </div>
+              <div
+                slot="body"
+                class="text-lg mx-auto mb-10"
+              >
+                <social-sharing
+                  url="https://vuejs.org/"
+                  title="The Progressive JavaScript Framework"
+                  description="Intuitive, Fast and Composable MVVM for building interactive interfaces."
+                  quote="Vue is a progressive framework for building user interfaces."
+                  hashtags="vuejs,javascript,framework"
+                  twitter-user="vuejs"
+                  inline-template
+                >
+                  <div class="inline-block text-4xl text-gray-800">
+                    <network
+                      class="mx-2 cursor-pointer transition duration-300 ease-in-out hover:text-blue-800"
+                      network="facebook"
+                    >
+                      <font-awesome-icon :icon="['fab', 'facebook-square']" />
+                    </network>
+                    <network
+                      class="mx-2 cursor-pointer transition duration-300 ease-in-out hover:text-green-600"
+                      network="line"
+                    >
+                      <font-awesome-icon :icon="['fab', 'line']" />
+                    </network>
+                    <network
+                      class="mx-2 cursor-pointer transition duration-300 ease-in-out hover:text-blue-600"
+                      network="linkedin"
+                    >
+                      <font-awesome-icon :icon="['fab', 'linkedin']" />
+                    </network>
+                    <network
+                      class="mx-2 cursor-pointer transition duration-300 ease-in-out hover:text-blue-700"
+                      network="telegram"
+                    >
+                      <font-awesome-icon :icon="['fab', 'telegram']" />
+                    </network>
+                    <network
+                      class="mx-2 cursor-pointer transition duration-300 ease-in-out hover:text-blue-500"
+                      network="twitter"
+                    >
+                      <font-awesome-icon :icon="['fab', 'twitter-square']" />
+                    </network>
+                    <network
+                      class="mx-2 cursor-pointer transition duration-300 ease-in-out hover:text-green-700"
+                      network="whatsapp"
+                    >
+                      <font-awesome-icon :icon="['fab', 'whatsapp']" />
+                    </network>
+                  </div>
+                </social-sharing>
+              </div>
+              <div slot="footer" class="bg-dark">
+              </div>
+            </modal>
           </div>
         </div>
         <img class="object-contain justify-end w-4/12 h-full md:w-3/12 mx-auto py-6" src="../assets/illustration-friends.png">
@@ -256,7 +326,9 @@
           </div>
           <p class="md:text-lg mt-1 leading-relaxed text-indigo-100">Anda bisa memasukkan kode voucher di atas dalam Aplikasi RILIV untuk mendapatkan GRATIS tujuh hari Meditasi bersama Riliv Hening</p>
           <div class="w-6/12 md:w-5/12 mt-6">
-            <v-button class="py-3" msg="Coba Aplikasi" variant="default"></v-button>
+            <a href="https://riliv.page.link/home2">
+              <v-button class="py-3" msg="Coba Aplikasi" variant="default"></v-button>
+            </a>
           </div>
         </div>
       </div>
@@ -271,6 +343,8 @@ import Tabs from "@/components/base/Tabs.vue";
 import VueApexCharts from "vue-apexcharts";
 import axios from "axios"
 import modal from "@/components/Modal.vue"
+import SocialSharing from "vue-social-sharing";
+
 
 import ungu from "../assets/bg_ungu.png";
 import orange from "../assets/bg_orange.png";
@@ -282,12 +356,13 @@ export default {
         Tabs,
         Tab,
         apexchart: VueApexCharts,
-        modal
+        modal,
+        SocialSharing
     },
     data: function() {
         return {
             isOpen: true,
-            isModalVisible: false,
+            isModalVisible: [false, false],
             couponCode: 'RILIVSURABAYAMU',
             isLoading: true,
             response: '',
@@ -365,8 +440,13 @@ export default {
       toggleLoading: function() {
         this.isLoading = !this.isLoading;
       },
-      toggleModal: function() {
-        this.isModalVisible = !this.isModalVisible;
+      toggleModal(index) {
+        // Sebenernya equivalent sama baris dibawah yang saya command, 
+        // cuma ternyata vue gabisa deteksi perubahan array secara langsung
+        // jadi harus pake splice biar dia nge-remove trs assign value yang baru
+
+        // this.isModalVisible[index] = !this.isModalVisible[index]
+        this.isModalVisible.splice(index, 1, !this.isModalVisible[index])
       },
       doCopy() {
         this.$copyText(this.couponCode).then(function () {

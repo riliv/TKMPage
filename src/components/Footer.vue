@@ -2,30 +2,35 @@
   <!--Center-->
   <div class="bg-blue-50">
     <div class="w-10/12 lg:w-8/12 mx-auto pt-16 lg:pt-40">
-      <h1
-        class="pb-10 text-3xl sm:text-4xl md:text-5xl text-gray-800 text-center font-sans font-semibold"
-      >
+      <h1 class="pb-10 text-3xl sm:text-4xl md:text-5xl text-gray-800 text-center font-sans font-semibold">
         Mari bersama-sama menjaga kesehatan mental
       </h1>
       <h2 class="pb-10 text-xl md:text-3xl text-gray-700 text-center font-sans">
         Ajak temanmu untuk mengetahui lebih dalam mengenai kondisi kesehatan
         mentalnya.
       </h2>
-      <div
-        class="text-center w-6/12 sm:w-4/12 md:w-3/12 mx-auto shadow-lg rounded"
-      >
+      <div class="text-center w-6/12 sm:w-4/12 md:w-3/12 mx-auto shadow-lg rounded">
         <v-button
           class="py-3 lg:py-4"
           msg="Bagikan alat tes ini"
           @click.native="toggleModal"
         />
-        <modal v-show="isModalVisible" @close="toggleModal">
-          <div slot="header" class="mx-auto text-center w-11/12 mt-12">
+        <modal
+          v-show="isModalVisible"
+          @close="toggleModal"
+        >
+          <div
+            slot="header"
+            class="mx-auto text-center mt-12"
+          >
             <p class="font-bold text-gray-800">
               Bagikan alat tes ini
             </p>
           </div>
-          <div slot="body" class="w-8/12 text-lg mx-auto mb-10">
+          <div
+            slot="body"
+            class="text-lg mx-auto mb-10"
+          >
             <social-sharing
               url="https://vuejs.org/"
               title="The Progressive JavaScript Framework"
@@ -35,27 +40,47 @@
               twitter-user="vuejs"
               inline-template
             >
-              <div class="flex flex-col">
-                <network network="facebook">
-                  <i class="fa fa-facebook"></i> Facebook
+              <div class="inline-block text-4xl text-gray-800">
+                <network
+                  class="mx-2 cursor-pointer transition duration-300 ease-in-out hover:text-blue-800"
+                  network="facebook"
+                >
+                  <font-awesome-icon :icon="['fab', 'facebook-square']" />
                 </network>
-                <network network="line">
-                  <i class="fa fa-line"></i> Line
+                <network
+                  class="mx-2 cursor-pointer transition duration-300 ease-in-out hover:text-green-600"
+                  network="line"
+                >
+                  <font-awesome-icon :icon="['fab', 'line']" />
                 </network>
-                <network network="linkedin">
-                  <i class="fa fa-linkedin"></i> LinkedIn
+                <network
+                  class="mx-2 cursor-pointer transition duration-300 ease-in-out hover:text-blue-600"
+                  network="linkedin"
+                >
+                  <font-awesome-icon :icon="['fab', 'linkedin']" />
                 </network>
-                <network network="telegram">
-                  <i class="fa fa-telegram"></i> Telegram
+                <network
+                  class="mx-2 cursor-pointer transition duration-300 ease-in-out hover:text-blue-700"
+                  network="telegram"
+                >
+                  <font-awesome-icon :icon="['fab', 'telegram']" />
                 </network>
-                <network network="twitter">
-                  <i class="fa fa-twitter"></i> Twitter
+                <network
+                  class="mx-2 cursor-pointer transition duration-300 ease-in-out hover:text-blue-500"
+                  network="twitter"
+                >
+                  <font-awesome-icon :icon="['fab', 'twitter-square']" />
                 </network>
-                <network network="whatsapp">
-                  <i class="fa fa-whatsapp"></i> Whatsapp
+                <network
+                  class="mx-2 cursor-pointer transition duration-300 ease-in-out hover:text-green-700"
+                  network="whatsapp"
+                >
+                  <font-awesome-icon :icon="['fab', 'whatsapp']" />
                 </network>
               </div>
             </social-sharing>
+          </div>
+          <div slot="footer" class="bg-dark">
           </div>
         </modal>
       </div>
