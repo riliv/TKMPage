@@ -252,12 +252,10 @@
                 class="text-lg mx-auto mb-10"
               >
                 <social-sharing
-                  url="https://vuejs.org/"
-                  title="The Progressive JavaScript Framework"
-                  description="Intuitive, Fast and Composable MVVM for building interactive interfaces."
-                  quote="Vue is a progressive framework for building user interfaces."
-                  hashtags="vuejs,javascript,framework"
-                  twitter-user="vuejs"
+                  url="https://sehatmental.riliv.co"
+                  title="Klik disini!"
+                  description="Tes Kesehatan Mental ini dapat membantumu untuk lebih mengenali kondisi mentalmu, bukan sebagai diagnosis utama gangguan mental ya"
+                  quote="Aku telah mencobanya, sekarang giliranmu nih. Gimana kondisi kesehatan mentalmu saat ini? Yuk coba sekarang!"
                   inline-template
                 >
                   <div class="inline-block text-4xl text-gray-800">
