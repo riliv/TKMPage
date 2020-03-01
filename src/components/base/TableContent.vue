@@ -79,7 +79,7 @@ export default {
 
 <style>
 /* Responsive table */
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 640px) {
   table caption .responsive-table {
     font-size: 1.3em;
   }
