@@ -1,6 +1,6 @@
 <template>
     <button 
-    class="w-full font-sans text-sm font-semibold text-white rounded shadow"
+    class="w-full font-sans text-sm font-semibold text-white rounded shadow focus:outline-none"
     :class="custom" 
     :style="style"
     >
