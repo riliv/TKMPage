@@ -3,9 +3,9 @@
         <nav class="bg-white pt-2">
             <div class="-mb-px flex">
                 <a v-for="tab in tabs"
-                   class="no-underline border-b-2 border-transparent tracking-wide font-normal py-5 mr-8"
+                   class="no-underline border-b-2 border-transparent tracking-wide font-normal py-5 mr-8 cursor-pointer"
                    :class="{ 'text-cyan-500': tab.isActive, 'text-gray-500': tab.isActive == false }"
-                   :href="tab.href" @click="selectTab(tab)"
+                   @click="selectTab(tab)"
                    :key="tab.name"
                 >
                 <div class="pb-1 px-3 border-b-2" :class="{ 'border-cyan-500': tab.isActive, 'border-white': tab.isActive == false }">
