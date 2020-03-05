@@ -19,7 +19,7 @@
             subtitle=""
             transition="fade-in"
           >
-            <p class="text-center text-3xl font-semibold">Tes DASS21</p>
+            <p class="text-center text-3xl font-semibold">Tes Kesehatan Mental</p>
             <div class="mx-auto my-4 border rounded bg-gray-100 select-none">
               <div
                 class="w-11/12 my-4 text-sm mx-auto"

@@ -198,7 +198,7 @@
             Dapatkan bantuan dari Tenaga Psikolog terdekat sekarang
           </p>
           <div class="flex flex-row w-full lg:w-6/12 mx-auto mt-8">
-            <a href="https://ehealth.surabaya.go.id/pendaftaran/" class="flex flex-none mx-auto">
+            <a href="https://ehealth.surabaya.go.id/pendaftaran/" target="_blank" class="flex flex-none mx-auto">
               <v-button class="py-4 px-5 mx-1 rounded-lg" msg="Dapatkan Bantuan"></v-button>
             </a>
           </div>
@@ -253,9 +253,9 @@
               >
                 <social-sharing
                   url="https://sehatmental.riliv.co"
-                  title="Klik disini!"
-                  description="Tes Kesehatan Mental ini dapat membantumu untuk lebih mengenali kondisi mentalmu, bukan sebagai diagnosis utama gangguan mental ya"
-                  quote="Aku telah mencobanya, sekarang giliranmu nih. Gimana kondisi kesehatan mentalmu saat ini? Yuk coba sekarang!"
+                  title="Hai, gimana kondisimu saat ini? Untuk membantumu lebih mengenali kondisi mentalmu, yuk coba Tes Kesehatan Mental ini sekarang!"
+                  description="Hai, gimana kondisimu saat ini? Untuk membantumu lebih mengenali kondisi mentalmu, yuk coba Tes Kesehatan Mental ini sekarang!"
+                  quote="Hai, gimana kondisimu saat ini? Untuk membantumu lebih mengenali kondisi mentalmu, yuk coba Tes Kesehatan Mental ini sekarang!"
                   inline-template
                 >
                   <div class="inline-block text-4xl text-gray-800">
