@@ -25,7 +25,7 @@
             <input
               v-model.lazy="person.name"
               class="form-input mt-2 block w-full text-sm focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
-              placeholder="Alejandro"
+              placeholder="Walter Joseph Kovacs"
               value=""
             />
           </div>

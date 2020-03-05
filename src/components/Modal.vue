@@ -23,11 +23,11 @@
           I'm the default body!
         </slot>
        </section>
-       <footer class="flex mx-auto w-4/12 px-4 pb-8 mx-2">
+       <footer class="flex mx-auto w-full px-4 m-4">
           <slot name="footer">
             <Button
               type="button"
-              class="py-3"
+              class="py-3 w-4/12"
               @click.native="close"
               msg="Kembali"
               aria-label="Close modal"

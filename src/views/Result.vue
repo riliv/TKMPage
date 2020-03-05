@@ -218,7 +218,7 @@
             <v-button class="py-3 text-xs" msg="Ikuti tes lagi" @click.native="toggleModal(0)"></v-button>
             <modal v-show="isModalVisible[0]" @close="toggleModal(0)">
               <div slot="header" class="mx-auto text-center mt-12">
-                <p class="font-bold text-gray-800">Mohon Maaf, tunggu 7 hari lagi</p>
+                <p class="font-bold text-gray-800">Mohon Maaf, tunggu 10 hari lagi</p>
               </div>
               <div slot="body" class="w-11/12 text-lg mx-auto mb-10">
                 <p class="text-gray-700">Anda belum dapat melakukan Tes Kesehatan Mental lagi. Anda harus menunggu selama 10 hari setelah melakukan tes terakhir.</p>

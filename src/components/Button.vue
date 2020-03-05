@@ -31,7 +31,7 @@ name: 'Button',
     },
     custom () {
       if (this.variant == 'alternative'){
-        return 'hover:bg-gray-200 hover:text-gray-700 border-2 border-gray-200 transition ease-in-out duration-300 bg-transparent shadow-none'
+        return 'hover:bg-gray-100 hover:text-gray-700 border-2 border-gray-200 transition ease-in-out duration-300 bg-transparent shadow-none'
       } else {
         return 'hover:shadow-outline-orange transition ease-in-out duration-300'
       }

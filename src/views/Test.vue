@@ -276,10 +276,14 @@
             ></v-button>
             <modal v-show="isModalVisible" @close="toggleModal">
               <div slot="header" class="mx-auto text-center mt-12">
-                <p class="font-bold text-gray-800">Jawaban tidak lolos validasi</p>
+                <p class="font-bold text-gray-800">Apakah kamu yakin dengan pilihan jawabanmu?</p>
               </div>
               <div slot="body" class="w-11/12 text-lg mx-auto mb-10">
-                <p class="text-gray-700">Pola jawaban yang selalu sama tidak dapat digunakan dalam mengidentifikasi masalah Anda dalam Tes Kesehatan Mental ini, silahkan koreksi kembali jawaban anda.</p>
+                <p class="text-gray-700">Pastikan pilihan jawabanmu telah sesuai dengan kondisimu ya! karena tes ini hanya bisa diambil setelah 10 hari</p>
+              </div>
+              <div slot="footer" class="w-full">
+                <v-button class="w-full py-2" msg="Iya" @click.native="skipValidation"></v-button>
+                <v-button class="w-full py-2 mt-2 text-gray-600" msg="Tidak" variant="alternative" @click.native="toggleModal"></v-button>
               </div>
             </modal>
           </form-wizard>
@@ -315,6 +319,7 @@ export default {
       isLoading: false,
       isValid: false,
       isModalVisible: false,
+      isValidationSkipped: false,
       user_id: "",
       soal: [],
       validasi: [],
@@ -368,6 +373,11 @@ export default {
     nextTab() {
       return true;
     },
+    async skipValidation() {
+      this.isValidationSkipped = true
+      this.toggleModal();
+      await this.submit()
+    },
     /* eslint-disable no-console */
     async submit() {
       this.soal = [];
@@ -386,7 +396,7 @@ export default {
         this.validasi.push(integerAnswer);
       }
 
-      if (this.similarity(this.validasi) > 95) {
+      if (this.similarity(this.validasi) > 95 && this.isValidationSkipped == false) {
         this.toggleModal();
         return;
       } 
