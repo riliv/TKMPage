@@ -118,7 +118,7 @@
               <option value="" disabled selected>Pilih Provinsi</option>
               <option
                 v-for="province in provinces.data"
-                :value="province.id"
+                :value="{id: province.id , name: province.name}"
                 :key="province.id"
                 >{{ province.name.toLowerCase() }}</option
               >
@@ -138,7 +138,7 @@
               <option value="" disabled selected>Pilih Kota/Kabupaten</option>
               <option
                 v-for="regency in regencies.data"
-                :value="regency.id"
+                :value="{id: regency.id , name: regency.name}"
                 :key="regency.id"
                 >{{ regency.name.toLowerCase() }}</option
               >
@@ -157,7 +157,7 @@
               <option value="" disabled selected>Pilih Kecamatan</option>
               <option
                 v-for="district in districts.data"
-                :value="district.id"
+                :value="{id: district.id , name: district.name}"
                 :key="district.id"
                 >{{ district.name.toLowerCase() }}</option
               >
@@ -285,7 +285,7 @@ export default {
       const url = this.baseUrl + this.key + suffixUrl;
       const params = {
         //nyesuain API Call dari rajaapi.com
-        idpropinsi: this.state.province
+        idpropinsi: this.state.province.id
       };
 
       // url /wilayah/kabupaten?idpropinsi=xxx
@@ -304,7 +304,7 @@ export default {
       const url = this.baseUrl + this.key + suffixUrl;
       // set params
       const params = {
-        idkabupaten: this.state.regency
+        idkabupaten: this.state.regency.id
       };
 
       axios
@@ -321,9 +321,9 @@ export default {
       axios
         .post(this.registrationAPI, {
           user_id: localStorage.getItem("identifier"),
-          provinsi: this.state.province,
-          kabupaten: this.state.regency,
-          kecamatan: this.state.district,
+          provinsi: this.state.province.name,
+          kabupaten: this.state.regency.name,
+          kecamatan: this.state.district.name,
           alamat: this.state.address,
           name: this.person.name,
           nik: this.person.nik,
