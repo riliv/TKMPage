@@ -24,7 +24,7 @@
             <p class="text-gray-600 font-semibold text-sm">Nama</p>
             <input
               v-model.lazy="person.name"
-              class="form-input mt-2 block w-full text-sm focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
+              class="form-input mt-2 block w-full text-sm focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent focus:outline-none"
               placeholder="Walter Joseph Kovacs"
               value=""
             />
@@ -35,7 +35,7 @@
             </p>
             <input
               v-model.lazy="person.nik"
-              class="form-input mt-2 block w-full text-sm focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
+              class="form-input mt-2 block w-full text-sm focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent focus:outline-none"
               placeholder="327208200698XXXX"
               value=""
             />
@@ -77,7 +77,7 @@
             <p class="text-gray-600 font-semibold text-sm">Nomor Telepon</p>
             <input
               v-model.lazy="person.phone"
-              class="form-input mt-2 block w-full text-sm focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
+              class="form-input mt-2 block w-full text-sm focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent focus:outline-none"
               placeholder="08121655XXX"
               value=""
             />
@@ -88,13 +88,13 @@
               <v-date-picker
                 v-model.number="date"
                 locale="id-ID"
+                class="appearance-none"
                 :popover="{ placement: 'bottom', visibility: 'click' }"
               >
                 <input
                   id="date"
                   name="datepicker"
-                  type="date"
-                  class="focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
+                  class="focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent focus:outline-none"
                   placeholder="Ex: 29/04/1999"
                   slot-scope="{ inputProps, inputEvents }"
                   :class="[
@@ -109,7 +109,7 @@
           <div class="block mt-4">
             <p class="text-gray-600 font-semibold text-sm">Provinsi</p>
             <select
-              class="form-select mt-1 block w-full text-sm capitalize focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
+              class="form-select mt-1 block w-full text-sm capitalize focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent focus:outline-none"
               :class="inputStyle(state.province)"
               @change="province"
               v-model="state.province"
@@ -130,7 +130,7 @@
           >
             <p class="text-gray-600 font-semibold text-sm">Kota/Kabupaten</p>
             <select
-              class="form-select mt-1 block w-full text-sm capitalize focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
+              class="form-select mt-1 block w-full text-sm capitalize focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent focus:outline-none"
               :class="inputStyle(state.regency)"
               @change="regency"
               v-model="state.regency"
@@ -150,7 +150,7 @@
           >
             <p class="text-gray-600 font-semibold text-sm">Kecamatan</p>
             <select
-              class="form-select mt-1 block w-full text-sm text-gray-500 capitalize focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
+              class="form-select mt-1 block w-full text-sm text-gray-500 capitalize focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent focus:outline-none"
               :class="inputStyle(state.district)"
               v-model="state.district"
             >
@@ -167,7 +167,7 @@
             <p class="text-gray-600 font-semibold text-sm">Alamat</p>
             <input
               v-model="state.address"
-              class="form-input mt-2 block w-full text-sm focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent"
+              class="form-input mt-2 block w-full text-sm focus:bg-gray-200 text-gray-800 placeholder-gray-500 focus:shadow-none focus:border-transparent focus:outline-none"
               placeholder="Masukkan alamat anda"
             />
           </div>
@@ -362,4 +362,20 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+button:focus,
+a:focus, a:active,
+button::-moz-focus-inner,
+input[type="reset"]::-moz-focus-inner,
+input[type="button"]::-moz-focus-inner,
+input[type="submit"]::-moz-focus-inner,
+select::-moz-focus-inner,
+input[type="file"] > input[type="button"]::-moz-focus-inner {
+  outline: none !important;
+}
+
+select:-moz-focusring {
+  color: transparent;
+  text-shadow: 0 0 0 #000;
+}
+</style>
