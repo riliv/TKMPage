@@ -90,7 +90,6 @@ export default {
       userStatus: "",
       clientId: process.env.VUE_APP_GOOGLE_CLIENT_ID,
       loginAPI: process.env.VUE_APP_LOGIN_API,
-      checkUserAPI: process.env.VUE_APP_CHECK_USER_API
     };
   },
   methods: {
@@ -120,7 +119,8 @@ export default {
           response => (
             (this.output = response.data),
             (this.user_id = response.data.user_id),
-            (this.isValidated = true)
+            (this.isValidated = true),
+            (this.userStatus = response.data.registered)
           )
         )
         .catch(
@@ -132,6 +132,8 @@ export default {
               "Login gagal 😞, silahkan coba lagi atau refresh browser anda")
           )
         );
+      //Check user apakah sudah register sebelumnya
+      this.checkUser()
 
       //Validasi user apakah telah melewati batas 10 hari
       if (this.isValidated == false) {
@@ -150,8 +152,6 @@ export default {
         localStorage.setItem("identifier", this.user_id);
         console.log(this.output.token);
 
-        //Check user apakah sudah register sebelumnya
-        this.checkUser();
       }
     },
 
@@ -162,21 +162,13 @@ export default {
         "Login gagal 😞, silahkan coba lagi atau refresh browser anda";
     },
 
-    async checkUser() {
-      await axios
-        .get(this.checkUserAPI + this.user_id)
-        .then(
-          response => (
-            (this.userStatus = response.data.status),
-            console.log(this.userStatus)
-          )
-        );
-
+    checkUser() {
+     
       //User udah register sebelumnya?
-      if (this.userStatus == "1") {
+      if (this.userStatus == true) {
         //Ke halaman introduction test
         this.$router.push({ name: "intro" });
-      } else if (this.userStatus == "0") {
+      } else if (this.userStatus == false) {
         this.$router.push({ name: "registration" });
       } else {
         //Tampilin Error
