@@ -236,12 +236,7 @@ export default {
   /* eslint-disable no-console */
   async mounted() {
     //Validasi token
-    await axios
-      .post(this.checkTokenAPI, {
-        token: localStorage.getItem("token")
-      })
-      .then(response => (console.log(response.data), (this.isValid = true)))
-      .catch(error => console.log(error.response));
+    await this.getToken()
 
     //Cek kredensialnya valid atau engga
     if (this.isValid == true) {
@@ -256,6 +251,14 @@ export default {
     }
   },
   methods: {
+    async getToken(){
+      await axios
+      .post(this.checkTokenAPI, {
+        token: localStorage.getItem("token")
+      })
+      .then(response => (console.log(response.data), (this.isValid = true)))
+      .catch(error => console.log(error.response));
+    },
     async getKey() {
       await axios
         .get("https://x.rajaapi.com/poe")
