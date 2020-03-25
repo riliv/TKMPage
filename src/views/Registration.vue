@@ -234,10 +234,12 @@ export default {
     };
   },
   /* eslint-disable no-console */
-  async mounted() {
+  async created() {
     //Validasi token
     await this.getToken()
-
+    console.log('getToken() status: '+ this.isValid)
+  },
+  async mounted() {
     //Cek kredensialnya valid atau engga
     if (this.isValid == true) {
       //Assign user_id
